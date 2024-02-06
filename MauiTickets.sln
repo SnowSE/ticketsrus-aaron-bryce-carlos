@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiTickets", "MauiTickets\MauiTickets.csproj", "{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiTickets", "MauiTickets\MauiTickets.csproj", "{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTickets", "BlazorTickets\BlazorTickets.csproj", "{BBFE6486-8932-48AA-BA5A-4A7DDD3B0BA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTickets", "BlazorTickets\BlazorTickets.csproj", "{BBFE6486-8932-48AA-BA5A-4A7DDD3B0BA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketLibrary", "TicketLibrary\TicketLibrary.csproj", "{08650D96-E44B-416C-8AA8-C1538729DDDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketLibrary", "TicketLibrary\TicketLibrary.csproj", "{08650D96-E44B-416C-8AA8-C1538729DDDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTicket", "TestTicket\TestTicket.csproj", "{E9A5D766-0115-4C6D-B0DF-6DFE53F7A5CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTicket", "TestTicket\TestTicket.csproj", "{E9A5D766-0115-4C6D-B0DF-6DFE53F7A5CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

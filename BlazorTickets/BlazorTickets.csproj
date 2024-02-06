@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NETStandardQRCode" Version="1.0.2" />
+    <PackageReference Include="QRCoderNetCore" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TicketLibrary\TicketLibrary.csproj" />
+  </ItemGroup>
+
 </Project>
