@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<img alt="" src="@QRByte" width="300" class="mb-5" />
+@* <img alt="" src="@QRByte" width="300" class="mb-5" /> *@
 
 
 @code {
@@ -47,9 +47,14 @@
     //         QRByte = string.Format("data:image/png;base64,{0}", base64);
     //     }
 
-      
+
     // }
 
 
+    public void GenerateQRCode()
+    {
+        generateQRCode QRGen = new ();
+        QRByte = QRGen.GenerateQRCodeBase64(QRCodeText);
+    }
 }
 

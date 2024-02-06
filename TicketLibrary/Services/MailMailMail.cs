@@ -30,14 +30,21 @@ public class MailMailMail
             message.To.Add(new MailboxAddress("An Email in need of a Message", ReceiverEmail));
             message.Subject = "Automated Message System";
 
-            message.Body = new TextPart("plain")
+            // Generate the QR code image and convert it to base64
+            string qrCodeBase64 = GenerateQRCodeBase64(QRCodeText);
+
+            // Construct the HTML body with the QR code image embedded
+            message.Body = new TextPart("html")
             {
-                Text = @$"Hey YOU,
-
-                   I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.
-
-                    {QRCode}"
+                Text = $@"<html>
+                <body>
+                    <p>Hey YOU,</p>
+                    <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
+                    <img src=""data:image/png;base64,{qrCodeBase64}"" alt=""QR Code""/>
+                </body>
+            </html>"
             };
+
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
