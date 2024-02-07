@@ -1,0 +1,31 @@
+﻿@page "/scanner"
+@using ZXing.Net.Maui;
+
+<h1>Scan Test</h1>
+
+<button @onclick="DoScanAsync">Scan</button>
+
+<br />
+
+Scan Result: @scanResultLabel
+
+@code
+{
+    private string scanResultLabel;
+
+    public async Task DoScanAsync()
+    {
+        var scanResults = await GetScanResultsAsync();
+        var barcode = scanResults.FirstOrDefault();
+        if (barcode != null)
+            scanResultLabel = $"Barcodes: {barcode.Format} -> {barcode.Value}";
+    }
+
+    public async Task<BarcodeResult[]> GetScanResultsAsync()
+    {
+        var cameraPage = new CameraPage();
+        await Application.Current.MainPage.Navigation.PushModalAsync(cameraPage);
+
+        return await cameraPage.WaitForResultAsync();
+    }
+}

@@ -28,7 +28,18 @@ public class MailMailMail
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Auto Emailer", SenderEmail));
             message.To.Add(new MailboxAddress("An Email in need of a Message", ReceiverEmail));
-            message.Subject = "Automated Message System";        
+            message.Subject = "Automated Message System";
+            /*
+                        BodyBuilder bodyBuilder = new BodyBuilder();
+                        bodyBuilder.HtmlBody = $@"<html>
+                            <body>
+                                <p>Hey YOU,</p>
+                                <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
+                                <img alt=""this is an image"" src=""{QRCode}"" width=""300"" class=""mb-5"" />
+                            </body>
+                        </html>";
+
+                        message.Body = bodyBuilder.ToMessageBody();*/
 
             // Construct the HTML body with the QR code image embedded
             message.Body = new TextPart("html")
@@ -37,7 +48,7 @@ public class MailMailMail
                 <body>
                     <p>Hey YOU,</p>
                     <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
-                    <img alt=""this is an image"" src=""{QRCode }"" width=""300"" class=""mb-5"" />
+                    <img alt=""this is an image"" src=""{QRCode}"" width=""300"" class=""mb-5"" />
                 </body>
             </html>"
             };

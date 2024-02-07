@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using ZXing.Net.Maui.Controls;
 
 namespace MauiTickets
 {
@@ -12,7 +13,8 @@ namespace MauiTickets
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                });
+                })
+                .UseBarcodeReader();
 
             builder.Services.AddMauiBlazorWebView();
 

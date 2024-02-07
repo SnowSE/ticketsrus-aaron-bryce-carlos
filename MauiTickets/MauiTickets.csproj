@@ -63,11 +63,19 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
         <PackageReference Include="QRCoder-ImageSharp" Version="0.9.0" />
+        <PackageReference Include="ZXing.Net.Maui" Version="0.4.0" />
+        <PackageReference Include="ZXing.Net.Maui.Controls" Version="0.4.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\BlazorTickets\BlazorTickets.csproj" />
       <ProjectReference Include="..\TicketLibrary\TicketLibrary.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="CameraPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
     </ItemGroup>
 
 </Project>
