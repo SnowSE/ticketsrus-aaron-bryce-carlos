@@ -16,7 +16,7 @@
     <div class="col-sm-6">
         <label class="mb-3">QR Code Text</label>
         <input type="text" @bind-value="QRCodeText" placeholder="Enter your text" class="form-control mb-4" />
-        <button @onclick="GenerateQRCode" class="btn btn-success">Generate QR Code</button>
+        @* <button @onclick="GenerateQRCode" class="btn btn-success">Generate QR Code</button> *@
     </div>
 </div>
 
@@ -30,6 +30,7 @@
 
     public void sendMail()
     {
+       QRByte = generateQRCode.GenerateQRCodeBase64(QRCodeText);
         mailSender.sendEmail("a73440661@gmail.com", "zkup konn xlui ygec", "brycegcoon@gmail.com",QRByte);
     }
 
@@ -51,10 +52,10 @@
     // }
 
 
-    public void GenerateQRCode()
-    {
-        generateQRCode QRGen = new ();
-        QRByte = QRGen.GenerateQRCodeBase64(QRCodeText);
-    }
+    // public void GenerateQRCode()
+    // {
+    //     //generateQRCode QRGen = new ();
+    //     QRByte = generateQRCode.GenerateQRCodeBase64(QRCodeText);
+    // }
 }
 

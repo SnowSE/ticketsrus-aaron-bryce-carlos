@@ -28,10 +28,7 @@ public class MailMailMail
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Auto Emailer", SenderEmail));
             message.To.Add(new MailboxAddress("An Email in need of a Message", ReceiverEmail));
-            message.Subject = "Automated Message System";
-
-            // Generate the QR code image and convert it to base64
-            string qrCodeBase64 = GenerateQRCodeBase64(QRCodeText);
+            message.Subject = "Automated Message System";        
 
             // Construct the HTML body with the QR code image embedded
             message.Body = new TextPart("html")
@@ -40,7 +37,7 @@ public class MailMailMail
                 <body>
                     <p>Hey YOU,</p>
                     <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
-                    <img src=""data:image/png;base64,{qrCodeBase64}"" alt=""QR Code""/>
+                    <img alt=""this is an image"" src=""{QRCode }"" width=""300"" class=""mb-5"" />
                 </body>
             </html>"
             };
