@@ -10,6 +10,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<ITicketService, WebTicketService>();
+builder.Services.AddScoped<IEventService, WebEventService>();
+
 builder.Services.AddDbContext<PostgresContext>(); 
 
 var app = builder.Build();

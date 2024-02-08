@@ -7,7 +7,7 @@ using TicketLibrary.Data;
 
 namespace TicketLibrary.Services;
 
-interface IEventService
+public interface IEventService
 {
     public Task<List<Event>> GetAllEventsAsync();
 

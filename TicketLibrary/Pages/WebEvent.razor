@@ -7,22 +7,41 @@
 <h3>Events</h3>
 
 <div class="container">
+
+    @foreach(var e in events)
+    {
     <div class="row">
         <div class="col-sm">
             <img src="/Images/Event.jpg" alt="I exist" />
-
+            <div>@e.EventName</div>
+            <button @onclick="PurchaseTicket">PURCHASE TICKET</button>
+            <input type="text" @bind="email" />
+            <button @onclick="confirmPurchase">CONFIRM</button>
         </div>
-        <div class="col-sm">
+@*         <div class="col-sm">
             <img src="/Images/Event.jpg" alt="I exist" />
-        </div>
+        </div> *@
     </div>
+    }
 </div>
 <img src="/Images/Event.jpg" alt="I exist" />
 
 @code {
     public List<Event> events = new();
+    public string email = "";
+
     protected override async Task OnInitializedAsync()
     {
         events = await eventService.GetAllEventsAsync();
+    }
+
+    public void PurchaseTicket()
+    {
+
+    }
+
+    public void confirmPurchase()
+    {
+        
     }
 }
