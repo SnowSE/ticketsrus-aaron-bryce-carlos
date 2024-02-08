@@ -66,6 +66,7 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
         <PackageReference Include="QRCoder-ImageSharp" Version="0.9.0" />
+        <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
         <PackageReference Include="ZXing.Net.Maui" Version="0.4.0" />
         <PackageReference Include="ZXing.Net.Maui.Controls" Version="0.4.0" />
     </ItemGroup>
@@ -79,6 +80,10 @@
       <MauiXaml Update="CameraPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\" />
     </ItemGroup>
 
 </Project>
