@@ -1,5 +1,6 @@
-﻿using MauiTickets.Data;
+﻿
 using SQLite;
+using TicketLibrary.Data;
 
 namespace MauiTickets.Databases;
 
@@ -19,7 +20,7 @@ public class ticketAppDb
 
         Connection = new SQLiteConnection(Path.Combine(baseDataDirectory, databaseName));
 
-        tables = new Type[]{typeof(LocalEvent), typeof(LocalTicket)};
+        tables = new Type[]{typeof(Event), typeof(Ticket)};
 
         InitializeLocalDatabase();
     }

@@ -2,7 +2,6 @@
 using System.Net.Http.Json;
 using TicketLibrary.Data;
 using TicketLibrary.Services;
-using MauiTickets.Data;
 using SQLite;
 
 
@@ -23,8 +22,9 @@ public class MauiEventService : IEventService
     {
         ticketAppDb = db;
     }
-    public async Task<List<LocalEvent>> GetAllEventsAsync()
+    public async Task<List<Event>> GetAllEventsAsync()
     {
-        return ticketAppDb.Connection.Table<LocalEvent>().ToList();
+        await Task.CompletedTask;
+        return ticketAppDb.Connection.Table<Event>().ToList();
     }
 }
