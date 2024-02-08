@@ -1,0 +1,28 @@
+﻿
+@using TicketLibrary.Services
+@using TicketLibrary.Data
+@inject IEventService eventService
+
+
+<h3>Events</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <img src="/Images/Event.jpg" alt="I exist" />
+
+        </div>
+        <div class="col-sm">
+            <img src="/Images/Event.jpg" alt="I exist" />
+        </div>
+    </div>
+</div>
+<img src="/Images/Event.jpg" alt="I exist" />
+
+@code {
+    public List<Event> events = new();
+    protected override async Task OnInitializedAsync()
+    {
+        events = await eventService.GetAllEventsAsync();
+    }
+}

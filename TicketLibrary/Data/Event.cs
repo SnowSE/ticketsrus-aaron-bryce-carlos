@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlazorTickets.Data;
+namespace TicketLibrary.Data;
 
 public partial class Event
 {
