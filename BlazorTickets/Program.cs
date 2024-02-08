@@ -11,8 +11,11 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddScoped<ITicketService, WebTicketService>();
 builder.Services.AddScoped<IEventService, WebEventService>();
+builder.Services.AddControllers();
+builder.Services.AddDbContext<PostgresContext>();
 
-builder.Services.AddDbContext<PostgresContext>(); 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -22,12 +25,16 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 app.UseStaticFiles();
 app.UseAntiforgery();
+
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

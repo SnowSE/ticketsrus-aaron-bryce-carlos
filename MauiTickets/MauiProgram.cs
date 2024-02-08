@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiTickets.Services;
+using Microsoft.Extensions.Logging;
+using TicketLibrary.Services;
 using ZXing.Net.Maui.Controls;
 
 namespace MauiTickets
@@ -17,9 +19,11 @@ namespace MauiTickets
                 .UseBarcodeReader();
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddScoped<IEventService, MauiEventService>();
+            builder.Services.AddScoped<ITicketService, MauiTicketService>();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
 
