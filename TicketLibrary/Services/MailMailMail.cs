@@ -1,6 +1,7 @@
 ﻿using MailKit;
 using MailKit.Net.Smtp;
 using MimeKit;
+using MimeKit.Utils;
 using System.Net.Mail;
 
 namespace TicketLibrary.Services;
@@ -18,10 +19,11 @@ public class MailMailMail
         5. Enter a name that helps you remember where you'll use the app password.
         6. Select Generate.
      */
+
     public string sendEmail(string SenderEmail,
-                            string SenderPass,
-                            string ReceiverEmail,
-                            string QRCode)
+                        string SenderPass,
+                        string ReceiverEmail,
+                        string QRCodeFilePath)
     {
         try
         {
@@ -29,30 +31,32 @@ public class MailMailMail
             message.From.Add(new MailboxAddress("Auto Emailer", SenderEmail));
             message.To.Add(new MailboxAddress("An Email in need of a Message", ReceiverEmail));
             message.Subject = "Automated Message System";
-            /*
-                        BodyBuilder bodyBuilder = new BodyBuilder();
-                        bodyBuilder.HtmlBody = $@"<html>
-                            <body>
-                                <p>Hey YOU,</p>
-                                <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
-                                <img alt=""this is an image"" src=""{QRCode}"" width=""300"" class=""mb-5"" />
-                            </body>
-                        </html>";
 
-                        message.Body = bodyBuilder.ToMessageBody();*/
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = $@"<html>
+            <body>
+                <p>Hey YOU,</p>
+                <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
+                <img alt=""this is an image"" src=""cid:QREmail"" width=""300"" class=""mb-5"" />
+            </body>
+        </html>";
 
-            // Construct the HTML body with the QR code image embedded
-            message.Body = new TextPart("html")
+            message.Body = bodyBuilder.ToMessageBody();
+
+            var attachment = new MimePart("image", "png")
             {
-                Text = $@"<html>
-                <body>
-                    <p>Hey YOU,</p>
-                    <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
-                    <img alt=""this is an image"" src=""{QRCode}"" width=""300"" class=""mb-5"" />
-                </body>
-            </html>"
+                Content = new MimeContent(File.OpenRead(QRCodeFilePath)),
+                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                ContentTransferEncoding = ContentEncoding.Base64,
+                FileName = Path.GetFileName(QRCodeFilePath)
             };
 
+            attachment.ContentId = MimeUtils.GenerateMessageId();
+            bodyBuilder.Attachments.Add(attachment);
+
+            bodyBuilder.HtmlBody = bodyBuilder.HtmlBody.Replace("{QRCode}", $"cid:{attachment.ContentId}");
+
+            message.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
@@ -64,11 +68,14 @@ public class MailMailMail
                 client.Send(message);
                 client.Disconnect(true);
             }
+
             return "Email Sent";
         }
         catch (Exception e)
         {
-            return "Bad Exception Happend";
+            return "Bad Exception Happened";
         }
     }
+
+
 }
