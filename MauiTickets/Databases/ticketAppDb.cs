@@ -1,10 +1,11 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using SQLite;
 using TicketLibrary.Data;
 
 namespace MauiTickets.Databases;
 
-public class ticketAppDb
+public class ticketAppDb : DbContext
 {
     public SQLiteConnection Connection { get; set; }
     public string? baseDataDirectory { get; set; }
@@ -17,8 +18,6 @@ public class ticketAppDb
         "JC", "LocalDataStorage", "Data");
 
         databaseName = "TicketsAppDb";
-
-        Connection = new SQLiteConnection(Path.Combine(baseDataDirectory, databaseName));
 
         tables = new Type[]{typeof(Event), typeof(Ticket)};
 
@@ -38,7 +37,6 @@ public class ticketAppDb
         {
             Connection.CreateTable(t);            
         }
-        //database.CreateTables(CreateFlags.None, tables);
 
         return Connection;
     }

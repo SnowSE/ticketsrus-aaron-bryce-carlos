@@ -1,4 +1,5 @@
-﻿using MauiTickets.Services;
+﻿using MauiTickets.Databases;
+using MauiTickets.Services;
 using Microsoft.Extensions.Logging;
 using TicketLibrary.Services;
 using ZXing.Net.Maui.Controls;
@@ -21,6 +22,7 @@ namespace MauiTickets
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<IEventService, MauiEventService>();
             builder.Services.AddScoped<ITicketService, MauiTicketService>();
+            builder.Services.AddDbContext<ticketAppDb>();
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

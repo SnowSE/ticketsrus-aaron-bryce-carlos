@@ -14,7 +14,7 @@ public partial class Event
 
     public string? EventName { get; set; }
 
-    public DateOnly? DateOfEvent { get; set; }
+    public DateTime? DateOfEvent { get; set; }
 
     [OneToMany]
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
