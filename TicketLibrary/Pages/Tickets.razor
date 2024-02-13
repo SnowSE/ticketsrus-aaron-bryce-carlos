@@ -2,6 +2,8 @@
 @using Microsoft.EntityFrameworkCore
 @using TicketLibrary.Data
 @inject ITicketService ticketService
+@inject IEventService eventService
+
 <h1>Tickets</h1>
 
 <table class="table">
@@ -17,8 +19,7 @@
        @foreach(var t in tickets)
        {
         <tr>
-          <th scope="row">1</th>
-          <td>@t.Event?.EventName</td>
+          <td>@events.FirstOrDefault(q => q.Id == t.EventId).EventName</td>
           <td>@t.Id</td>
           <td>@t.IsScanned</td>
           <td>@t.UserEmail</td>
@@ -32,7 +33,11 @@
 
 @code{
     public List<Ticket> tickets = new();
+    public List<Event> events = new();
+
     protected override async Task OnInitializedAsync(){
         tickets = await ticketService.GetAllTicketsAsync();
+        events = await eventService.GetAllEventsAsync();
+
     }
 }

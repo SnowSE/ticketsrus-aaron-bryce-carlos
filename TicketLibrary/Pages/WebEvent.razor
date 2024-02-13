@@ -17,8 +17,8 @@
         <div class="col-sm">
             <img src="/Images/Event.jpg" alt="I exist" />
             <div>@e.EventName</div>
-            <button @onclick="PurchaseTicket">PURCHASE TICKET</button>
-            <input type="text" @bind="email" />
+            <label for="enterEmail">Please enter your email here to purchase a ticket</label>
+            <input type="text" @bind="email" name="enterEmail"/>
             <button @onclick="() => confirmPurchase(e.Id)">CONFIRM</button>
         </div>
     </div>
@@ -43,13 +43,19 @@
     //send the email with qr code
     public void confirmPurchase(int eId)
     {
+        Guid g = Guid.NewGuid();
+
         Ticket newTicket = new Ticket()
-            { EventId = eId, IsScanned = false, UserEmail = email };
+            { EventId = eId, IsScanned = false, UserEmail = email, ticketNumber = g.ToString() };
 
 
         if(IsValidEmail(email))
         {
             ticketService.AddATicket(newTicket);
+            //generateQRCode generator = new();
+            MailMailMail emailer = new();
+            var qrcode = generateQRCode.GenerateQRCodeBase64(g.ToString());
+            emailer.sendEmail("a73440661@gmail.com", "zkup konn xlui ygec", email, qrcode);
         }
     }
 
