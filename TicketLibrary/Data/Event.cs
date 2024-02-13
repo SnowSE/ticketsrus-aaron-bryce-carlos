@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 
+
 namespace TicketLibrary.Data;
 [SQLite.Table("Event")]
 public partial class Event

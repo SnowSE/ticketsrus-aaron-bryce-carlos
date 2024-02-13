@@ -46,7 +46,7 @@
         Guid g = Guid.NewGuid();
 
         Ticket newTicket = new Ticket()
-            { EventId = eId, IsScanned = false, UserEmail = email, ticketNumber = g.ToString() };
+            { EventId = eId, IsScanned = false, UserEmail = email, Ticketnumber = g.ToString() };
 
 
         if(IsValidEmail(email))

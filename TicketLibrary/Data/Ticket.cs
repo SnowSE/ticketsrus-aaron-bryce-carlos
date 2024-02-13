@@ -20,7 +20,7 @@ public partial class Ticket
 
     public bool? IsScanned { get; set; }
 
-    public string? ticketNumber { get; set; }
+    public string Ticketnumber { get; set; } = null!;
 
     [ManyToOne]
     public virtual Event? Event { get; set; }
