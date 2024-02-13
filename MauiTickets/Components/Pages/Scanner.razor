@@ -3,6 +3,12 @@
 
 <h1>Scan Test</h1>
 
+@* TODO: select an event before you can scan
+ - compare the scan result and get the ticket it belongs to
+ - make sure the ticket is for correct event
+ - if it is the correct event, set scanned to true
+*@
+
 <button @onclick="DoScanAsync">Scan</button>
 
 <br />
@@ -16,16 +22,21 @@ Scan Result: @scanResultLabel
     public async Task DoScanAsync()
     {
         var scanResults = await GetScanResultsAsync();
-        var barcode = scanResults.FirstOrDefault();
+        var barcode = scanResults;
         if (barcode != null)
             scanResultLabel = $"Barcodes: {barcode.Format} -> {barcode.Value}";
     }
 
-    public async Task<BarcodeResult[]> GetScanResultsAsync()
+    public async Task<BarcodeResult> GetScanResultsAsync()
     {
         var cameraPage = new CameraPage();
+
         await Application.Current.MainPage.Navigation.PushModalAsync(cameraPage);
 
-        return await cameraPage.WaitForResultAsync();
+        var results = await cameraPage.WaitForResultAsync();
+
+        await Application.Current.MainPage.Navigation.PopModalAsync();
+
+        return results;
     }
 }

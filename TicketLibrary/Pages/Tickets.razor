@@ -19,7 +19,7 @@
        @foreach(var t in tickets)
        {
         <tr>
-          <td>@events.FirstOrDefault(q => q.Id == t.EventId).EventName</td>
+          <td>@events.FirstOrDefault(q => q.Id == t.EventId)?.EventName</td>
           <td>@t.Id</td>
           <td>@t.IsScanned</td>
           <td>@t.UserEmail</td>

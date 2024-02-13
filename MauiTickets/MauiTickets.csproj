@@ -77,13 +77,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiXaml Update="CameraPage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </MauiXaml>
+      <Folder Include="Data\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
+      <MauiXaml Update="CameraPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
     </ItemGroup>
 
 </Project>

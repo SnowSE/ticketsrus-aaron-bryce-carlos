@@ -14,11 +14,11 @@ namespace MauiTickets
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseBarcodeReader()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                })
-                .UseBarcodeReader();
+                });
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<IEventService, MauiEventService>();
