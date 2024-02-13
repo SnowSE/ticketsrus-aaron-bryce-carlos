@@ -11,4 +11,6 @@ public interface ITicketService
 {
     public Task<List<Ticket>> GetAllTicketsAsync();
 
+    public Task AddATicket(Ticket ticket);
+
 }

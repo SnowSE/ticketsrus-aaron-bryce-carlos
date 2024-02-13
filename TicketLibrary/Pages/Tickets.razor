@@ -7,10 +7,10 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Event Name</th>
+      <th scope="col">Ticket ID</th>
+      <th scope="col">Checked In</th>
+      <th scope="col">Ticket Email</th>
     </tr>
   </thead>
    <tbody>
@@ -18,7 +18,7 @@
        {
         <tr>
           <th scope="row">1</th>
-          <td>@t.Event</td>
+          <td>@t.Event?.EventName</td>
           <td>@t.Id</td>
           <td>@t.IsScanned</td>
           <td>@t.UserEmail</td>

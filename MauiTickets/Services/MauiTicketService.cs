@@ -9,10 +9,10 @@ public class MauiTicketService : ITicketService
 {
     HttpClient client = new HttpClient();
 
-    async Task<List<Ticket>> ITicketService.GetAllTicketsAsync()
-    {
-        return await client.GetFromJsonAsync<List<Ticket>>("https://localhost:7097/api/Ticket/getall");
-    }
+    //async Task<List<Ticket>> ITicketService.GetAllTicketsAsync()
+    //{
+    //    return await client.GetFromJsonAsync<List<Ticket>>("https://localhost:7097/api/Ticket/getall");
+    //}
 
     public ticketAppDb ticketAppDb { get; set; }
 
@@ -20,9 +20,16 @@ public class MauiTicketService : ITicketService
     {
         ticketAppDb = db;
     }
+
     public async Task<List<Ticket>> GetAllTicketsAsync()
     {
         await Task.CompletedTask;
         return ticketAppDb.Connection.Table<Ticket>().ToList();
+    }
+
+    public Task AddATicket(Ticket ticket)
+    {
+        ticketAppDb.Connection.Table<Ticket>().Append(ticket); 
+        return Task.CompletedTask;
     }
 }

@@ -11,6 +11,14 @@ public class WebTicketService : ITicketService
     {
         _context = context;
     }
+
+    public Task AddATicket(Ticket t)
+    {
+        _context.Tickets.Add(t);
+        _context.SaveChanges();
+        return Task.CompletedTask;
+    }
+
     public async Task<List<Ticket>> GetAllTicketsAsync()
     {
         return await _context.Tickets.ToListAsync<Ticket>();

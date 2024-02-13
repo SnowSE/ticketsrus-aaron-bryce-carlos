@@ -14,6 +14,8 @@ builder.Services.AddScoped<IEventService, WebEventService>();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PostgresContext>();
 
+var emailPassword =  builder.Configuration["emailPassword"];
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

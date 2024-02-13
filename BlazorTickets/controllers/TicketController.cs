@@ -10,7 +10,7 @@ public class TicketController : ControllerBase
 {
     private readonly ITicketService _ticketService;
     public TicketController(ITicketService ticketService)
-    { 
+    {
         _ticketService = ticketService;
     }
 
@@ -18,6 +18,12 @@ public class TicketController : ControllerBase
     public async Task<IEnumerable<Ticket>> GetTicketsAsync()
     {
         return await _ticketService.GetAllTicketsAsync();
+    }
+
+    [HttpPost("addticket")]
+    public async Task AddATicket([FromBody] Ticket ticket)
+    {
+        await _ticketService.AddATicket(ticket);
     }
 
 

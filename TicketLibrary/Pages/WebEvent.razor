@@ -1,7 +1,10 @@
 ﻿
+@using System.Net.Mail
 @using TicketLibrary.Services
 @using TicketLibrary.Data
+
 @inject IEventService eventService
+@inject ITicketService ticketService
 
 
 <h3>Events</h3>
@@ -16,15 +19,11 @@
             <div>@e.EventName</div>
             <button @onclick="PurchaseTicket">PURCHASE TICKET</button>
             <input type="text" @bind="email" />
-            <button @onclick="confirmPurchase">CONFIRM</button>
+            <button @onclick="() => confirmPurchase(e.Id)">CONFIRM</button>
         </div>
-@*         <div class="col-sm">
-            <img src="/Images/Event.jpg" alt="I exist" />
-        </div> *@
     </div>
     }
 </div>
-<img src="/Images/Event.jpg" alt="I exist" />
 
 @code {
     public List<Event> events = new();
@@ -40,8 +39,30 @@
 
     }
 
-    public void confirmPurchase()
+
+    //send the email with qr code
+    public void confirmPurchase(int eId)
     {
-        
+        Ticket newTicket = new Ticket()
+            { EventId = eId, IsScanned = false, UserEmail = email };
+
+
+        if(IsValidEmail(email))
+        {
+            ticketService.AddATicket(newTicket);
+        }
+    }
+
+    public bool IsValidEmail(string anEmailAddress)
+    {
+        try
+        {
+            MailAddress m = new MailAddress(anEmailAddress);
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
     }
 }
