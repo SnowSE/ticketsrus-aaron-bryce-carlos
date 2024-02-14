@@ -2,7 +2,8 @@
 @using System.Net.Mail
 @using TicketLibrary.Services
 @using TicketLibrary.Data
-
+@inject MailMailMail mail
+ 
 @inject IEventService eventService
 @inject ITicketService ticketService
 
@@ -46,9 +47,8 @@
         if(IsValidEmail(email))
         {
             ticketService.AddATicket(newTicket);
-            MailMailMail emailer = new();
             var qrcode = generateQRCode.GenerateQRCodeBase64(g.ToString());
-            emailer.sendEmail("a73440661@gmail.com", "zkup konn xlui ygec", email, qrcode);
+            mail.sendEmail(email, qrcode);
         }
     }
 

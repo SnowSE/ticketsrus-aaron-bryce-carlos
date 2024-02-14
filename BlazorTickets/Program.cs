@@ -13,6 +13,8 @@ builder.Services.AddScoped<ITicketService, WebTicketService>();
 builder.Services.AddScoped<IEventService, WebEventService>();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PostgresContext>();
+builder.Services.AddScoped<MailMailMail>();
+
 
 var emailPassword =  builder.Configuration["emailPassword"];
 

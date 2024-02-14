@@ -1,12 +1,14 @@
 ﻿using MailKit;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Utils;
 using System.Net.Mail;
 
+
 namespace TicketLibrary.Services;
 
-public class MailMailMail
+public class MailMailMail(IConfiguration _configuration)
 {
     //base code for this implementation taken from 
     // https://github.com/jstedfast/MailKit and adjusted to be a class on it's own by Aaron
@@ -20,15 +22,14 @@ public class MailMailMail
         6. Select Generate.
      */
 
-    public string sendEmail(string SenderEmail,
-                        string SenderPass,
-                        string ReceiverEmail,
+
+    public string sendEmail(string ReceiverEmail,
                         string QRCodeFilePath)
     {
         try
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Auto Emailer", SenderEmail));
+            message.From.Add(new MailboxAddress("Auto Emailer", _configuration["googleAccount"]));
             message.To.Add(new MailboxAddress("An Email in need of a Message", ReceiverEmail));
             message.Subject = "Automated Message System";
 
@@ -63,7 +64,7 @@ public class MailMailMail
                 client.Connect("smtp.gmail.com", 587, false);
 
                 // Note: only needed if the SMTP server requires authentication
-                client.Authenticate(SenderEmail, SenderPass);
+                client.Authenticate(_configuration["googleAccount"], _configuration["googlePassword"]);
 
                 client.Send(message);
                 client.Disconnect(true);
