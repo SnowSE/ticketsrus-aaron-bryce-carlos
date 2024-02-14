@@ -23,4 +23,10 @@ public class WebTicketService : ITicketService
     {
         return await _context.Tickets.ToListAsync<Ticket>();
     }
+
+    public async Task UpdateATicket(Ticket t)
+    {
+        _context.Tickets.Update(t);
+        _context.SaveChanges();
+    }
 }

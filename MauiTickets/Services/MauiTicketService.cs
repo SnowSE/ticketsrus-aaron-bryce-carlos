@@ -36,11 +36,16 @@ public class MauiTicketService : ITicketService
         return Task.CompletedTask;
     }
 
+    public Task UpdateATicket(Ticket ticket)
+    {
+        ticketAppDb.Connection.Update(ticket);
+        return Task.CompletedTask;  
+    }
+
     public async Task SyncDatabases()
     {
         List<Ticket> onlineTickets = await client.GetFromJsonAsync<List<Ticket>>("https://localhost:7097/api/Ticket/getall");
         List<Ticket> localTickets = await GetAllTicketsAsync();
-        bool exists = false;
 
         List<Ticket> temp = new List<Ticket>();
 
@@ -66,6 +71,7 @@ public class MauiTicketService : ITicketService
                 if ((localTickets.FirstOrDefault(q => q.Id == ticket.Id).IsScanned) != ticket.IsScanned)
                 {
                     //set the local ticket equal to online
+                    UpdateATicket(ticket);
                 }
             }
         }
@@ -84,6 +90,7 @@ public class MauiTicketService : ITicketService
                 if ((onlineTickets.FirstOrDefault(q => q.Id == ticket.Id).IsScanned) != ticket.IsScanned)
                 {
                     //set the online ticket equal to local
+                    await client.PutAsJsonAsync("https://localhost:7097/api/Ticket/updateticket", ticket);
                 }
             }
         }

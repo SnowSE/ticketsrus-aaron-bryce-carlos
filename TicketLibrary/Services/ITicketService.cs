@@ -13,4 +13,7 @@ public interface ITicketService
 
     public Task AddATicket(Ticket ticket);
 
+    public Task UpdateATicket(Ticket t);
+
+
 }
