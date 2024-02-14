@@ -38,6 +38,5 @@
     protected override async Task OnInitializedAsync(){
         tickets = await ticketService.GetAllTicketsAsync();
         events = await eventService.GetAllEventsAsync();
-
     }
 }
