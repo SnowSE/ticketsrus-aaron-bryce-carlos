@@ -60,7 +60,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        events = await eventService.GetAllEventsAsync();
+        try
+        {
+            events = await eventService.GetAllEventsAsync();
+        }
+        catch(Exception e)
+        {
+            throw;    
+        }
     }
 
     private string scanResultLabel;

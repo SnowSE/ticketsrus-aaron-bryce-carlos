@@ -14,7 +14,7 @@ public class ticketAppDb : DbContext
     public ticketAppDb()
     {
         baseDataDirectory = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "JC", "LocalDataStorage", "Data");
 
         databaseName = "TicketsAppDb";
@@ -26,17 +26,24 @@ public class ticketAppDb : DbContext
 
     public SQLiteConnection InitializeLocalDatabase()
     {
-       
-        if (Connection == null)
+        try
         {
-            if (!Directory.Exists(baseDataDirectory)) Directory.CreateDirectory(baseDataDirectory);
+            if (Connection == null)
+            {
+                if (!Directory.Exists(baseDataDirectory)) Directory.CreateDirectory(baseDataDirectory);
 
-            Connection = new SQLiteConnection(Path.Combine(baseDataDirectory, databaseName));
+                Connection = new SQLiteConnection(Path.Combine(baseDataDirectory, databaseName));
+            }
+            foreach (var t in tables)
+            {
+                Connection.CreateTable(t);
+            }
         }
-        foreach (var t in tables)
+        catch (Exception ex)
         {
-            Connection.CreateTable(t);            
+            throw;
         }
+
 
         return Connection;
     }
