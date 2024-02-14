@@ -26,5 +26,10 @@ public class TicketController : ControllerBase
         await _ticketService.AddATicket(ticket);
     }
 
+    [HttpPut("updateticket")]
+    public async Task UpdateATicket([FromBody] Ticket ticket)
+    {
+        await _ticketService.UpdateATicket(ticket);
+    }
 
 }

@@ -34,12 +34,6 @@
         events = await eventService.GetAllEventsAsync();
     }
 
-    public void PurchaseTicket()
-    {
-
-    }
-
-
     //send the email with qr code
     public void confirmPurchase(int eId)
     {
@@ -52,7 +46,6 @@
         if(IsValidEmail(email))
         {
             ticketService.AddATicket(newTicket);
-            //generateQRCode generator = new();
             MailMailMail emailer = new();
             var qrcode = generateQRCode.GenerateQRCodeBase64(g.ToString());
             emailer.sendEmail("a73440661@gmail.com", "zkup konn xlui ygec", email, qrcode);

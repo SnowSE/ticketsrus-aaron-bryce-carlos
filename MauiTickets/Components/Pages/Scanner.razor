@@ -1,5 +1,10 @@
 ﻿@page "/scanner"
+@using TicketLibrary.Services
 @using ZXing.Net.Maui;
+@using MauiTickets.Services;
+@using TicketLibrary.Data;
+@inject ITicketService ticketService
+@inject IEventService eventService
 
 <h1>Scan Test</h1>
 
@@ -9,14 +14,55 @@
  - if it is the correct event, set scanned to true
 *@
 
-<button @onclick="DoScanAsync">Scan</button>
+<h2>Please select an event to scan for:</h2>
 
-<br />
+    <div>
+    <label for="eventsDropdown">Choose an event:</label>
+    
+    <select name="eventsDropdown" @bind="@selectedEventId">
+        @foreach (var e in events)
+        {
+            <option  value="@e.Id"> @e.EventName </option>
+        }
+    </select>
 
-Scan Result: @scanResultLabel
+   </div>
+
+@if(selectedEventId > -1)
+{
+   <h2>Welcome to the @events.FirstOrDefault(q => q.Id == selectedEventId).EventName event!</h2> 
+    <button @onclick="DoScanAsync">Scan</button>
+
+    <br />
+
+    <div>Scan Result: @scanResultLabel</div>
+
+    @if(errorMessage != "")
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>    
+    }
+    @if(sucessMessage != "")
+    {     
+        <div class="alert alert-success" role="alert">
+            @sucessMessage
+        </div>
+    }
+}
 
 @code
 {
+    public List<Event> events = new();
+    public int selectedEventId { get; set; } = -1;
+    public string sucessMessage { get; set; } = "";
+    public string errorMessage { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        events = await eventService.GetAllEventsAsync();
+    }
+
     private string scanResultLabel;
 
     public async Task DoScanAsync()
@@ -25,6 +71,29 @@ Scan Result: @scanResultLabel
         var barcode = scanResults;
         if (barcode != null)
             scanResultLabel = $"Barcodes: {barcode.Format} -> {barcode.Value}";
+
+        Ticket t = await GetTicketForQrCode(barcode.Value);
+
+        if(t is null)
+        {
+            errorMessage = "This is not a valid qr code for events";
+        }
+        else if(await TicketMatchesEvent(t))
+        {
+            if(!(bool)t.IsScanned)
+            {
+                t.IsScanned = true;
+                await ticketService.UpdateATicket(t);         
+            }
+            else
+            {
+                errorMessage = "Your ticket has already been scanned!";
+            }
+        }
+        else
+        {
+            errorMessage = "Your ticket doesn't match this event!";
+        }
     }
 
     public async Task<BarcodeResult> GetScanResultsAsync()
@@ -39,4 +108,23 @@ Scan Result: @scanResultLabel
 
         return results;
     }
+
+    public async Task<Ticket> GetTicketForQrCode(string TicketNum)
+    {
+        var tickets = await ticketService.GetAllTicketsAsync();
+
+        var matchingTicket = tickets.Where(t => t.Ticketnumber == TicketNum).FirstOrDefault();
+
+        if(matchingTicket is null)
+        {
+            return null;
+        }
+        else
+        {
+            return matchingTicket;
+        }
+
+    }
+
+    public async Task<bool> TicketMatchesEvent(Ticket t) => t.Event.Id.Equals(selectedEventId);
 }
