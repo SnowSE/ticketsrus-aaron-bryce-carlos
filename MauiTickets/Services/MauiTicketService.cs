@@ -14,8 +14,21 @@ public class MauiTicketService : ITicketService
     public MauiTicketService(ticketAppDb db)
     {
         ticketAppDb = db;
-        SyncDatabases();
-        SetTimer(20);
+        //ResetLocalTicketsDB();
+        //SyncDatabases();
+        //SetTimer(20);
+    }
+    public async Task ResetLocalTicketsDB()
+    {
+        try
+        {
+
+        // This was because our local DB was duplicating stuff
+        ticketAppDb.Connection.DeleteAll<Ticket>();
+        List<Ticket> temptick = await client.GetFromJsonAsync<List<Ticket>>("/api/Ticket/getall");
+        ticketAppDb.Connection.InsertAll(temptick);
+        }
+        catch (Exception ex) { throw; }
     }
 
 
@@ -38,14 +51,14 @@ public class MauiTicketService : ITicketService
     }
 
 
-    public void SetTimer(int seconds)
+    public async Task SetTimer(int seconds)
     {
         var startTimeSpan = TimeSpan.Zero;
         var periodTimeSpan = TimeSpan.FromSeconds(seconds);
 
-        var timer = new System.Threading.Timer((e) =>
+        var timer = new System.Threading.Timer(async (e) =>
         {
-            SyncDatabases();
+           await SyncDatabases();
         }, null, startTimeSpan, periodTimeSpan);
     }
 
@@ -58,7 +71,7 @@ public class MauiTicketService : ITicketService
         List<Ticket> temp = new List<Ticket>();
 
         SyncOnlineToLocal(onlineTickets, localTickets);
-        SyncLocalToOnline(onlineTickets, localTickets);
+        await SyncLocalToOnline(onlineTickets, localTickets);
 
     }
 
@@ -68,15 +81,15 @@ public class MauiTicketService : ITicketService
 
         foreach (Ticket ticket in onlineTickets)
         {
-            if (localTickets.FirstOrDefault(q => q.Id == ticket.Id) is null)
+            if (localTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber) is null)
             {
                 tempTicket = ticket;
-                tempTicket.Id = ticket.Id;
+                //tempTicket.Id = ticket.Id;
                 AddATicket(tempTicket);
             }
             else
             {
-                if ((localTickets.FirstOrDefault(q => q.Id == ticket.Id).IsScanned) != ticket.IsScanned)
+                if ((localTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber).IsScanned) != ticket.IsScanned)
                 {
                     //set the local ticket equal to online
                     UpdateATicket(ticket);
@@ -85,21 +98,15 @@ public class MauiTicketService : ITicketService
         }
     }
 
-    public async Task SyncLocalToOnline(List<Ticket> onlineTickets, List<Ticket> localTickets)
+    private async Task SyncLocalToOnline(List<Ticket> onlineTickets, List<Ticket> localTickets)
     {
         foreach (Ticket ticket in localTickets)
         {
-            if (onlineTickets.FirstOrDefault(q => q.Id == ticket.Id) is null)
+          //We assume the ticket exists because only the real database can make tickets
+            if ((onlineTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber).IsScanned) != ticket.IsScanned)
             {
-                await client.PostAsJsonAsync("/api/Ticket/addticket", ticket);
-            }
-            else
-            {
-                if ((onlineTickets.FirstOrDefault(q => q.Id == ticket.Id).IsScanned) != ticket.IsScanned)
-                {
-                    //set the online ticket equal to local
-                    await client.PutAsJsonAsync("/api/Ticket/updateticket", ticket);
-                }
+                //set the online ticket equal to local
+                await client.PutAsJsonAsync("/api/Ticket/updateticket", ticket);
             }
         }
     }

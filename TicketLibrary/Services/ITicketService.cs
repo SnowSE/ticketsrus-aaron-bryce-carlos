@@ -15,6 +15,10 @@ public interface ITicketService
 
     public Task UpdateATicket(Ticket t);
 
-    public void SetTimer(int seconds);
- 
+    public Task SetTimer(int seconds);
+
+    public Task ResetLocalTicketsDB();
+    public Task SyncDatabases();
+
+
 }

@@ -10,6 +10,9 @@ namespace TicketLibrary.Services
         {
             if (!string.IsNullOrEmpty(qrCodeText))
             {
+                try
+                {
+
                 QRCodeGenerator qrCodeGenerate = new QRCodeGenerator();
                 QRCodeData qrCodeData = qrCodeGenerate.CreateQrCode(qrCodeText, QRCodeGenerator.ECCLevel.Q);
                 QRCode qrCode = new QRCode(qrCodeData);
@@ -23,6 +26,11 @@ namespace TicketLibrary.Services
                 }
 
                 return filePath;
+                }
+                catch (Exception ex) 
+                {
+                    throw;
+                }
             }
 
             return "";
