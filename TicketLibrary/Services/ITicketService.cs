@@ -15,5 +15,6 @@ public interface ITicketService
 
     public Task UpdateATicket(Ticket t);
 
-
+    public void SetTimer(int seconds);
+ 
 }
