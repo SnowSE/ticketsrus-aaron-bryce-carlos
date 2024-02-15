@@ -1,6 +1,8 @@
 using BlazorTickets.Components;
 using BlazorTickets.Data;
 using BlazorTickets.Services;
+using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
 using TicketLibrary.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,14 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+
 builder.Services.AddScoped<ITicketService, WebTicketService>();
 builder.Services.AddScoped<IEventService, WebEventService>();
 builder.Services.AddControllers();
-builder.Services.AddDbContext<PostgresContext>();
 builder.Services.AddScoped<MailMailMail>();
+builder.Services.AddDbContext<PostgresContext>(options => options.UseNpgsql(builder.Configuration["Postgres"]));
 
-
-var emailPassword =  builder.Configuration["emailPassword"];
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -45,4 +46,4 @@ app.MapRazorComponents<App>()
 
 app.Run();
 
-public partial class Program { };
+public partial class Program {  };
