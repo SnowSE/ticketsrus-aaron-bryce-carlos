@@ -20,8 +20,10 @@
 
         //run this if your local database has more rows than the azure database
         //await service.ResetLocalTicketsDB();
-        
-        await service.SyncDatabases();
+
+
+        await service.SyncDatabases();            
+       
         StateHasChanged();
     }
 

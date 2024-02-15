@@ -10,6 +10,7 @@ public class MauiTicketService : ITicketService
 {
     HttpClient client = new HttpClient() { BaseAddress = new Uri("https://blazortickets20240214165128.azurewebsites.net")};
     public ticketAppDb ticketAppDb { get; set; }
+    public bool isConnected { get; set; }
 
     public MauiTicketService(ticketAppDb db)
     {
@@ -50,6 +51,10 @@ public class MauiTicketService : ITicketService
         return Task.CompletedTask;  
     }
 
+    public void ChangeConnectivity(bool _IsConnected)
+    {
+        isConnected = _IsConnected;
+    }
 
     public async Task SetTimer(int seconds)
     {
@@ -58,20 +63,25 @@ public class MauiTicketService : ITicketService
 
         var timer = new System.Threading.Timer(async (e) =>
         {
-           await SyncDatabases();
+            await SyncDatabases();
         }, null, startTimeSpan, periodTimeSpan);
     }
 
 
     public async Task SyncDatabases()
     {
-        List<Ticket> onlineTickets = await client.GetFromJsonAsync<List<Ticket>>("/api/Ticket/getall");
-        List<Ticket> localTickets = await GetAllTicketsAsync();
+        if(isConnected)
+        {
+            List<Ticket> onlineTickets = await client.GetFromJsonAsync<List<Ticket>>("/api/Ticket/getall");
+            List<Ticket> localTickets = await GetAllTicketsAsync();
 
-        List<Ticket> temp = new List<Ticket>();
+            List<Ticket> temp = new List<Ticket>();
 
-        SyncOnlineToLocal(onlineTickets, localTickets);
-        await SyncLocalToOnline(onlineTickets, localTickets);
+            SyncOnlineToLocal(onlineTickets, localTickets);
+            await SyncLocalToOnline(onlineTickets, localTickets);
+        }
+
+        await Task.CompletedTask;
 
     }
 

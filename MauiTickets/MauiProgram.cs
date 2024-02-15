@@ -22,7 +22,7 @@ namespace MauiTickets
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddScoped<IEventService, MauiEventService>();
-            builder.Services.AddScoped<ITicketService, MauiTicketService>();
+            builder.Services.AddSingleton<ITicketService, MauiTicketService>();
             builder.Services.AddScoped<MailMailMail>();
             builder.Services.AddDbContext<ticketAppDb>();
 

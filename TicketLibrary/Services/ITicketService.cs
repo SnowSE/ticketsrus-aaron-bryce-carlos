@@ -16,7 +16,7 @@ public interface ITicketService
     public Task UpdateATicket(Ticket t);
 
     public Task SetTimer(int seconds);
-
+    public void ChangeConnectivity(bool _IsConnected);
     public Task ResetLocalTicketsDB();
     public Task SyncDatabases();
 

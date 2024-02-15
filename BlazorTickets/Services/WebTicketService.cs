@@ -24,6 +24,11 @@ public class WebTicketService : ITicketService
         return Task.CompletedTask;
     }
 
+    public void ChangeConnectivity(bool _IsConnected)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<List<Ticket>> GetAllTicketsAsync()
     {
         return await _context.Tickets.ToListAsync<Ticket>();
