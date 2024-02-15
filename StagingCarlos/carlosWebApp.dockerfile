@@ -1,12 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
-WORKDIR /app
+WORKDIR /BlazorTickets
 
-EXPOSE 80
+EXPOSE 8080
 
 COPY *.csproj .
 RUN dotnet restore
 
-WORKDIR /BlazorTickets
 COPY . .
 RUN dotnet build -c Release -o /app/build
 

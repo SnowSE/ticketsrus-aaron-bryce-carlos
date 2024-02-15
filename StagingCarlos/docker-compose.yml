@@ -11,9 +11,9 @@ services:
     container_name: postgresql
     restart: always
     environment:
-       POSTGRES_USER: postgres
-       POSTGRES_DB: postgres
-       POSTGRES_PASSWORD: postgres
+      - POSTGRES_USER: ticketuser
+      - POSTGRES_DB: postgres
+      - POSTGRES_PASSWORD: P@ssword1
     ports:
       - "5432:5432"
     networks:
@@ -22,7 +22,7 @@ services:
       - ./StagingCarlos/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   blazor:
-   container_name: blazor_webapp
+   container_name: blazor
    depends_on:
      - postgresql
    build:
@@ -30,25 +30,25 @@ services:
      dockerfile: carlosWebApp.dockerfile
    environment:
      - ASPNETCORE_ENVIRONMENT=Production
-     - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1;
+     - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1
    ports:
      - "8080:8080" 
    networks:
      - Tunnel
 
   maui:
-  container_name: maui_app
-  depends_on:
-    - postgresql
-    - blazor
-  build:
-    context: ./
-    dockerfile: carlosMAUIApp.dockerfile
-  environment:
-    - ASPNETCORE_ENVIRONMENT=Production
-    - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1;
-  ports:
-    - "8081:8080" 
-  networks:
-    - Tunnel
+   container_name: maui_app
+   depends_on:
+     - postgresql
+     - blazor
+   build:
+     context: ./
+     dockerfile: carlosMAUIApp.dockerfile
+   environment:
+     - ASPNETCORE_ENVIRONMENT=Production
+     - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1
+   ports:
+     - "8081:8080" 
+   networks:
+     - Tunnel
 

@@ -1,13 +1,12 @@
 FROM mcr.microsoft.com/dotnet/maui/sdk:latest as build
+WORKDIR /MauiTickets
 
-WORKDIR /app
+EXPOSE 8081
 
 COPY *.csproj .
-
 RUN dotnet restore
 
 COPY . .
-
 RUN dotnet build -c Release -o /app/build
 
 FROM build as publish
@@ -19,5 +18,4 @@ WORKDIR /app
 
 COPY --from=publish /app/publish .
 
-# Specify the entry point for the container
-ENTRYPOINT ["dotnet", "YourMauiAppName.dll"]
+ENTRYPOINT ["dotnet", "MauiTickets.dll"]
