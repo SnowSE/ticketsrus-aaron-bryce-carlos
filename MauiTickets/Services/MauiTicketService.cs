@@ -8,7 +8,7 @@ namespace MauiTickets.Services;
 
 public class MauiTicketService : ITicketService
 {
-    HttpClient client = new HttpClient();
+    HttpClient client = new HttpClient() { BaseAddress = new Uri("https://blazortickets20240214165128.azurewebsites.net")};
 
     //async Task<List<Ticket>> ITicketService.GetAllTicketsAsync()
     //{
@@ -44,7 +44,7 @@ public class MauiTicketService : ITicketService
 
     public async Task SyncDatabases()
     {
-        List<Ticket> onlineTickets = await client.GetFromJsonAsync<List<Ticket>>("https://localhost:7097/api/Ticket/getall");
+        List<Ticket> onlineTickets = await client.GetFromJsonAsync<List<Ticket>>("/api/Ticket/getall");
         List<Ticket> localTickets = await GetAllTicketsAsync();
 
         List<Ticket> temp = new List<Ticket>();
@@ -83,14 +83,14 @@ public class MauiTicketService : ITicketService
         {
             if (onlineTickets.FirstOrDefault(q => q.Id == ticket.Id) is null)
             {
-                await client.PostAsJsonAsync("https://localhost:7097/api/Ticket/addticket", ticket);
+                await client.PostAsJsonAsync("/api/Ticket/addticket", ticket);
             }
             else
             {
                 if ((onlineTickets.FirstOrDefault(q => q.Id == ticket.Id).IsScanned) != ticket.IsScanned)
                 {
                     //set the online ticket equal to local
-                    await client.PutAsJsonAsync("https://localhost:7097/api/Ticket/updateticket", ticket);
+                    await client.PutAsJsonAsync("/api/Ticket/updateticket", ticket);
                 }
             }
         }

@@ -79,6 +79,7 @@
         if (barcode != null)
             scanResultLabel = $"Barcodes: {barcode.Format} -> {barcode.Value}";
 
+        string guid = barcode.Value;
         Ticket t = await GetTicketForQrCode(barcode.Value);
 
         if(t is null)
@@ -90,7 +91,8 @@
             if(!(bool)t.IsScanned)
             {
                 t.IsScanned = true;
-                await ticketService.UpdateATicket(t);         
+                await ticketService.UpdateATicket(t);
+                sucessMessage = "Successfully scanned the ticket";
             }
             else
             {
@@ -133,5 +135,5 @@
 
     }
 
-    public async Task<bool> TicketMatchesEvent(Ticket t) => t.Event.Id.Equals(selectedEventId);
+    public async Task<bool> TicketMatchesEvent(Ticket t) => t.EventId.Equals(selectedEventId);
 }

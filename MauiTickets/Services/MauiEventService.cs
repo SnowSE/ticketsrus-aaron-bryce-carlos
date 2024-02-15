@@ -9,11 +9,11 @@ namespace MauiTickets.Services;
 
 public class MauiEventService : IEventService
 {
-    HttpClient client = new HttpClient();
+    HttpClient client = new HttpClient() { BaseAddress = new Uri("https://blazortickets20240214165128.azurewebsites.net") };
 
     async Task<List<Event>> IEventService.GetAllEventsAsync()
     {
-        return await client.GetFromJsonAsync<List<Event>>("https://localhost:7097/api/Event/getall");
+        return await client.GetFromJsonAsync<List<Event>>("/api/Event/getall");
     }
 
     public ticketAppDb ticketAppDb { get; set; }
