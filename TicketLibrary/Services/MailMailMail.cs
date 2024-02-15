@@ -10,19 +10,6 @@ namespace TicketLibrary.Services;
 
 public class MailMailMail(IConfiguration _configuration)
 {
-    //base code for this implementation taken from 
-    // https://github.com/jstedfast/MailKit and adjusted to be a class on it's own by Aaron
-    // in order to use Gmail to send you must get a app password for the email
-    // instructions as found on google:
-    /*  1. Go to your Google Account.
-        2. Select Security.
-        3. Under "Signing in to Google," select 2-Step Verification.
-        4. At the bottom of the page, select App passwords.
-        5. Enter a name that helps you remember where you'll use the app password.
-        6. Select Generate.
-     */
-
-
     public string sendEmail(string ReceiverEmail,
                         string QRCodeFilePath)
     {

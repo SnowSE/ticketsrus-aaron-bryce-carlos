@@ -18,6 +18,7 @@
     <label for="eventsDropdown">Choose an event:</label>
     
     <select name="eventsDropdown" @bind="@selectedEventId">
+        <option value="value" selected>Click Me!</option>
         @foreach (var e in events)
         {
             <option  value="@e.Id"> @e.EventName </option>
