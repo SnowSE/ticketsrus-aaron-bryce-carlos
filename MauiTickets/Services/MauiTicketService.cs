@@ -116,7 +116,9 @@ public class MauiTicketService : ITicketService
             if ((onlineTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber).IsScanned) != ticket.IsScanned)
             {
                 //set the online ticket equal to local
-                await client.PutAsJsonAsync("/api/Ticket/updateticket", ticket);
+                Ticket tem = ticket;
+                tem.Id = onlineTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber).Id;
+                await client.PutAsJsonAsync("/api/Ticket/updateticket", tem);
             }
         }
     }

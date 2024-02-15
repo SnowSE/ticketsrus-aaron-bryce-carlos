@@ -13,19 +13,20 @@ namespace TicketLibrary.Services
                 try
                 {
 
-                QRCodeGenerator qrCodeGenerate = new QRCodeGenerator();
-                QRCodeData qrCodeData = qrCodeGenerate.CreateQrCode(qrCodeText, QRCodeGenerator.ECCLevel.Q);
-                QRCode qrCode = new QRCode(qrCodeData);
+                    QRCodeGenerator qrCodeGenerate = new QRCodeGenerator();
+                    QRCodeData qrCodeData = qrCodeGenerate.CreateQrCode(qrCodeText, QRCodeGenerator.ECCLevel.Q);
+                    QRCode qrCode = new QRCode(qrCodeData);
 
-                string appDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string filePath = Path.Combine(appDataDirectory, "QREmail.png");
+                    string appDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    string filePath = Path.Combine(appDataDirectory, "QREmail.png");
 
-                using (Bitmap qrBitMap = qrCode.GetGraphic(20))
-                {
-                    qrBitMap.Save(filePath, ImageFormat.Png);
-                }
+                    using (Bitmap qrBitMap = qrCode.GetGraphic(20))
+                    {
+                        qrBitMap.Save(filePath, ImageFormat.Png);
+                        qrBitMap.Dispose();
+                    }
 
-                return filePath;
+                    return filePath;
                 }
                 catch (Exception ex) 
                 {

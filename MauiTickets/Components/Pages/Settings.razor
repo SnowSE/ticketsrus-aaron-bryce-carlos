@@ -53,7 +53,7 @@ Please input the api that the data should pull from
 <button @onclick="resetTickets">Reset local Tickets</button>
 
 @code {
-    public bool isOnline;
+    public bool isOnline = true;
     public int sFrequency = 15;
     public string setAPI = "";
     public string errorMessage = "";
