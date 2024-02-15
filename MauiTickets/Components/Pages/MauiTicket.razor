@@ -16,7 +16,13 @@
     protected override async Task OnInitializedAsync()
     {
         if(Value == null) { Value = "20"; }
-        service.SetTimer(Int32.Parse(Value));
+        await service.SetTimer(Int32.Parse(Value));
+
+        //run this if your local database has more rows than the azure database
+        //await service.ResetLocalTicketsDB();
+        
+        await service.SyncDatabases();
+        StateHasChanged();
     }
 
 }

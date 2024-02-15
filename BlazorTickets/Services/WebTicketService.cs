@@ -29,7 +29,12 @@ public class WebTicketService : ITicketService
         return await _context.Tickets.ToListAsync<Ticket>();
     }
 
-    public void SetTimer(int seconds)
+    public Task ResetLocalTicketsDB()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task SyncDatabases()
     {
         throw new NotImplementedException();
     }
@@ -38,5 +43,10 @@ public class WebTicketService : ITicketService
     {
         _context.Tickets.Update(t);
         _context.SaveChanges();
+    }
+
+    Task ITicketService.SetTimer(int seconds)
+    {
+        throw new NotImplementedException();
     }
 }

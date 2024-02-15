@@ -1,6 +1,8 @@
 ﻿@page "/settings"
 @using MauiTickets.Services
+@using TicketLibrary.Services
 @inject NavigationManager UriHelper
+@inject ITicketService service
 @* inject MauiTicketService ticketService *@
 
 <h3>Settings</h3>
@@ -48,9 +50,11 @@ Please input the api that the data should pull from
     </div>
 }
 
+<button @onclick="resetTickets">Reset local Tickets</button>
+
 @code {
     public bool isOnline;
-    public int sFrequency;
+    public int sFrequency = 15;
     public string setAPI = "";
     public string errorMessage = "";
     public string successMessage = "";
@@ -72,5 +76,9 @@ Please input the api that the data should pull from
         }
 
 
+    }
+    public async Task resetTickets()
+    {
+        await service.ResetLocalTicketsDB();
     }
 }
