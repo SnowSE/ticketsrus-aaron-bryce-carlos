@@ -9,18 +9,13 @@ namespace MauiTickets.Services;
 public class MauiTicketService : ITicketService
 {
     HttpClient client = new HttpClient() { BaseAddress = new Uri("https://blazortickets20240214165128.azurewebsites.net")};
-
-    //async Task<List<Ticket>> ITicketService.GetAllTicketsAsync()
-    //{
-    //    return await client.GetFromJsonAsync<List<Ticket>>("https://localhost:7097/api/Ticket/getall");
-    //}
-
     public ticketAppDb ticketAppDb { get; set; }
 
     public MauiTicketService(ticketAppDb db)
     {
         ticketAppDb = db;
         SyncDatabases();
+        SetTimer(20);
     }
 
 
@@ -41,6 +36,19 @@ public class MauiTicketService : ITicketService
         ticketAppDb.Connection.Update(ticket);
         return Task.CompletedTask;  
     }
+
+
+    public void SetTimer(int seconds)
+    {
+        var startTimeSpan = TimeSpan.Zero;
+        var periodTimeSpan = TimeSpan.FromSeconds(seconds);
+
+        var timer = new System.Threading.Timer((e) =>
+        {
+            SyncDatabases();
+        }, null, startTimeSpan, periodTimeSpan);
+    }
+
 
     public async Task SyncDatabases()
     {

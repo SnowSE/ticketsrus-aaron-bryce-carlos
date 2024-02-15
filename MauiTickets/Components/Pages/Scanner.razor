@@ -8,10 +8,8 @@
 
 <h1>Scan Test</h1>
 
-@* TODO: select an event before you can scan
- - compare the scan result and get the ticket it belongs to
- - make sure the ticket is for correct event
- - if it is the correct event, set scanned to true
+@* TODO: fix if is already scanned
+    - set a default value for the select
 *@
 
 <h2>Please select an event to scan for:</h2>
@@ -92,15 +90,18 @@
             {
                 t.IsScanned = true;
                 await ticketService.UpdateATicket(t);
+                errorMessage = "";
                 sucessMessage = "Successfully scanned the ticket";
             }
             else
             {
+                sucessMessage = "";
                 errorMessage = "Your ticket has already been scanned!";
             }
         }
         else
         {
+            sucessMessage = "";
             errorMessage = "Your ticket doesn't match this event!";
         }
     }

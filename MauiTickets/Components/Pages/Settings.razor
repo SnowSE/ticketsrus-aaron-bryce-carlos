@@ -1,0 +1,76 @@
+﻿@page "/settings"
+@using MauiTickets.Services
+@inject NavigationManager UriHelper
+@* inject MauiTicketService ticketService *@
+
+<h3>Settings</h3>
+
+@* input to change online or offline *@
+
+<InputRadioGroup Name="isOnline" @bind-Value="isOnline">
+    <InputRadio Name="isOnline" Value="true" />
+    Online
+    <InputRadio Name="isOnline" Value="false" />
+    Offline
+</InputRadioGroup>
+
+<br /><br />
+
+@* dropdown to change sync frequency *@
+Please input the frequency in seconds that you want the DBs to sync
+<input type="number" @bind-value=sFrequency/>
+
+<br />
+<br />
+
+
+@* input to set the api that the app pulls from *@
+Please input the api that the data should pull from
+<input type="text" @bind=setAPI />
+
+<br />
+<br />
+
+
+@* submit button *@
+<button @onclick="handleFormRequest">SUBMIT</button>
+
+@if (errorMessage != "")
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
+@if (successMessage != "")
+{
+    <div class="alert alert-success" role="alert">
+        @successMessage
+    </div>
+}
+
+@code {
+    public bool isOnline;
+    public int sFrequency;
+    public string setAPI = "";
+    public string errorMessage = "";
+    public string successMessage = "";
+
+
+    public void handleFormRequest()
+    {
+        if (sFrequency > 0 && sFrequency < 1000000)
+        { 
+            //ticketService.SetTimer(sFrequency);
+            UriHelper.NavigateTo($"mauiTicket/{sFrequency.ToString()}");
+            errorMessage = "";
+            successMessage = "Settings Saved Successfully";
+        }
+        else
+        {
+            successMessage = "";
+            errorMessage = "Invalid frequency entered, please enter a number between 1 and 1,000,000";
+        }
+
+
+    }
+}

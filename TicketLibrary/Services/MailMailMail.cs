@@ -36,8 +36,7 @@ public class MailMailMail(IConfiguration _configuration)
             BodyBuilder bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = $@"<html>
             <body>
-                <p>Hey YOU,</p>
-                <p>I just wanted to let you know that this is a really authentic message and you should tip Jonathan heavily when you get it.</p>
+                <p>You have successfully bought a ticket!</p>
                 <img alt=""this is an image"" src=""cid:QREmail"" width=""300"" class=""mb-5"" />
             </body>
         </html>";

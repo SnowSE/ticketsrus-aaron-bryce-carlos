@@ -1,14 +1,17 @@
-﻿@page "/mauiTicket"
+﻿@page "/mauiTicket/{Value}"
+@using MauiTickets.Services
+@inject MauiTicketService service
 
 <h3>MauiTickets</h3>
 
 <TicketLibrary.Pages.Tickets></TicketLibrary.Pages.Tickets>
 
 @code {
-
+    [Parameter]
+    public string Value { get; set; }
     protected override async Task OnInitializedAsync()
     {
-       
+        service.SetTimer(Int32.Parse(Value));
     }
 
 }
