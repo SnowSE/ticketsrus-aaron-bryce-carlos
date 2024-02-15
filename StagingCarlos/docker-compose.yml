@@ -1,0 +1,54 @@
+version: "3"
+
+networks:
+  Tunnel:
+    driver: bridge
+
+services:
+
+  postgresql:
+    image: postgres
+    container_name: postgresql
+    restart: always
+    environment:
+       POSTGRES_USER: postgres
+       POSTGRES_DB: postgres
+       POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - Tunnel
+    volumes:
+      - ./StagingCarlos/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  blazor:
+   container_name: blazor_webapp
+   depends_on:
+     - postgresql
+   build:
+     context: ./
+     dockerfile: carlosWebApp.dockerfile
+   environment:
+     - ASPNETCORE_ENVIRONMENT=Production
+     - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1;
+   ports:
+     - "8080:8080" 
+   networks:
+     - Tunnel
+
+  maui:
+  container_name: maui_app
+  depends_on:
+    - postgresql
+    - blazor
+  build:
+    context: ./
+    dockerfile: carlosMAUIApp.dockerfile
+  environment:
+    - ASPNETCORE_ENVIRONMENT=Production
+    - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1;
+  ports:
+    - "8081:8080" 
+  networks:
+    - Tunnel
+
