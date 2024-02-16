@@ -9,5 +9,5 @@ jobs:
       - name: "run the build command"
         run: |
             cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
-            docker-compose up --build -d
+            docker compose up --build -d
     
