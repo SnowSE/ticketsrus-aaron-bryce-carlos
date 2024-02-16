@@ -55,7 +55,7 @@ Please input the api that the data should pull from
 @code {
     public bool isOnline = true;
     public int sFrequency = 15;
-    public string setAPI = "";
+    public string setAPI = "https://blazortickets20240214165128.azurewebsites.net";
     public string errorMessage = "";
     public string successMessage = "";
 
@@ -76,6 +76,7 @@ Please input the api that the data should pull from
         }
 
         service.ChangeConnectivity(isOnline);
+        service.ChangeBaseAddress(setAPI);
     }
     public async Task resetTickets()
     {

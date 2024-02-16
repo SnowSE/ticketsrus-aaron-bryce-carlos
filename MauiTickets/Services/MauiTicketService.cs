@@ -15,9 +15,10 @@ public class MauiTicketService : ITicketService
     public MauiTicketService(ticketAppDb db)
     {
         ticketAppDb = db;
-        //ResetLocalTicketsDB();
-        //SyncDatabases();
-        //SetTimer(20);
+    }
+    public void ChangeBaseAddress(string newBaseAddress)
+    {
+        client.BaseAddress = new Uri(newBaseAddress);
     }
     public async Task ResetLocalTicketsDB()
     {

@@ -24,6 +24,11 @@ public class WebTicketService : ITicketService
         return Task.CompletedTask;
     }
 
+    public void ChangeBaseAddress(string newBaseAddress)
+    {
+        throw new NotImplementedException();
+    }
+
     public void ChangeConnectivity(bool _IsConnected)
     {
         throw new NotImplementedException();
