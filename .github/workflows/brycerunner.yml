@@ -4,13 +4,13 @@ jobs:
   DeployingPipeline:
     runs-on: brycelabel
     steps:
-      - name: clean up
+      - name: "clean up"
         run: 
 
-      - name: clone project
+      - name: "clone project"
         run: git clone https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
         
-      - name: run the build command
+      - name: "run the build command"
         run: |
             cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
             docker-compose up --build -d
