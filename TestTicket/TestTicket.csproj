@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorTickets\BlazorTickets.csproj" />
+    <ProjectReference Include="..\MauiTickets\MauiTickets.csproj" />
   </ItemGroup>
 
 </Project>

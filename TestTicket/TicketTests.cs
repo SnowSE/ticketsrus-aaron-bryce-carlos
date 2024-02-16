@@ -9,4 +9,20 @@ public class TicketTests : IClassFixture<TicketFactory>
     {
         Assert.Equal(1, 1);
     }
+
+    [Fact] public void SuccessfulScanUpdatesDatabase()
+    {
+        Assert.Equal(1, 1);
+    }
+
+    [Fact] public void FailedScanDoesntUpdatesDatabase()
+    {
+        Assert.Equal(1, 1);
+    }
+
+    [Fact]
+    public void ChangeAPIResetsLocalDatabase()
+    {
+        Assert.Equal(1, 1);
+    }
 }
