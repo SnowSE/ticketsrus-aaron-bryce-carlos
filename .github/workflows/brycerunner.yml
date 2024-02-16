@@ -1,0 +1,18 @@
+name: bryce Deploy Thingy
+on: [push]
+jobs:
+  DeployingPipeline:
+    runs-on: brycelabel
+    steps:
+    - name: clean up
+      run: 
+
+    - name: clone project
+      run: git clone origin main
+
+    - name: move into staging folder
+      run: cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
+
+    - name: run the build command
+      run: docker-compose up --build
+    
