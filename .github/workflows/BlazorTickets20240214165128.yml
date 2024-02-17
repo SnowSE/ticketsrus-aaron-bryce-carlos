@@ -22,7 +22,7 @@ jobs:
       run: dotnet workload restore && dotnet test TestTicket
   build:
     needs: test
-   
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET SDK
