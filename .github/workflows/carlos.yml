@@ -1,0 +1,14 @@
+name: carlosRunner
+on: [push] 
+jobs: 
+  DeployingPipeline: 
+    runs-on: carloslabel
+    steps: 
+     - name: "cleaning"
+       run: rm -rf ./ticketsrus-aaron-bryce-carlos
+     - name: "cloning"
+       run: git clone https://${{secrets.CARLOS_GITHUB_PASSWORD}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+     - name: "build"
+       run: | 
+        cd ./ticketsrus-aaron-bryce-carlos/StagingCarlos
+        docker compose up --build -d
