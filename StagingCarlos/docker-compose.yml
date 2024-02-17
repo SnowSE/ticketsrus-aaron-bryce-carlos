@@ -6,7 +6,7 @@ networks:
 
 services:
 
-  postgresql:
+  carlosdb:
     image: postgres
     container_name: postgresql
     restart: always
@@ -19,36 +19,18 @@ services:
     networks:
       - Tunnel
     volumes:
-      - ./StagingCarlos/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../TestTicket/20240215.01.21.01.sql:/docker-entrypoint-initdb.d/init.sql
 
   blazor:
    container_name: blazor
    depends_on:
-     - postgresql
-   build:
-     context: ./
-     dockerfile: carlosWebApp.dockerfile
+     - carlosdb
+   build: ..
    environment:
      - ASPNETCORE_ENVIRONMENT=Production
-     - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1
+     - Postgres=Server=carlosdb;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1
    ports:
-     - "8080:8080" 
-   networks:
-     - Tunnel
-
-  maui:
-   container_name: maui_app
-   depends_on:
-     - postgresql
-     - blazor
-   build:
-     context: ./
-     dockerfile: carlosMAUIApp.dockerfile
-   environment:
-     - ASPNETCORE_ENVIRONMENT=Production
-     - Postgres=Host=postgresql;Database=postgres;Port=5432;User ID=ticketuser;Password=P@ssword1
-   ports:
-     - "8081:8080" 
+     - "5454:8080" 
    networks:
      - Tunnel
 
