@@ -15,7 +15,7 @@ using Testcontainers.PostgreSql;
 
 namespace TestTicket;
 
-internal class TicketFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public class TicketFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer;
     public TicketFactory()

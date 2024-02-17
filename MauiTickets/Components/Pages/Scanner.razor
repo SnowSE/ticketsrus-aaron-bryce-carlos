@@ -81,31 +81,13 @@
         string guid = barcode.Value;
         Ticket t = await GetTicketForQrCode(barcode.Value);
 
-        if(t is null)
-        {
-            errorMessage = "This is not a valid qr code for events";
-        }
-        else if(await TicketMatchesEvent(t))
-        {
-            if(!(bool)t.IsScanned)
-            {
-                t.IsScanned = true;
-                await ticketService.UpdateATicket(t);
-                errorMessage = "";
-                sucessMessage = "Successfully scanned the ticket";
-            }
-            else
-            {
-                sucessMessage = "";
-                errorMessage = "Your ticket has already been scanned!";
-            }
-        }
-        else
-        {
-            sucessMessage = "";
-            errorMessage = "Your ticket doesn't match this event!";
-        }
+        changedScannerTicket checker = new(ticketService);
+        await checker.changeScannedTicket(t, selectedEventId);
+        sucessMessage = checker.sucessMessage;
+        errorMessage = checker.errorMessage;
     }
+
+    
 
     public async Task<BarcodeResult> GetScanResultsAsync()
     {
@@ -137,5 +119,5 @@
 
     }
 
-    public async Task<bool> TicketMatchesEvent(Ticket t) => t.EventId.Equals(selectedEventId);
+    
 }
