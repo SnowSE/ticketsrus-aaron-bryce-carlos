@@ -10,8 +10,19 @@ env:
   DOTNET_CORE_VERSION: 8.0.102
   WORKING_DIRECTORY: BlazorTickets
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    - name: Test
+      run: dotnet workload restore && dotnet test TestTicket
+  build:
+    needs: test
+   
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET SDK
@@ -22,8 +33,6 @@ jobs:
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
-    - name: Test
-      run: dotnet test "${{ env.WORKING_DIRECTORY }}"
     - name: Publish
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Publish Artifacts
