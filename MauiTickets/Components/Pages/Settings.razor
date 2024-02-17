@@ -60,8 +60,10 @@ Please input the api that the data should pull from
     public string successMessage = "";
 
 
-    public void handleFormRequest()
+    public async void handleFormRequest()
     {
+        service.ChangeConnectivity(isOnline);
+        await service.ChangeBaseAddress(setAPI);
         if (sFrequency > 0 && sFrequency < 1000000)
         { 
             //ticketService.SetTimer(sFrequency);
@@ -75,9 +77,10 @@ Please input the api that the data should pull from
             errorMessage = "Invalid frequency entered, please enter a number between 1 and 1,000,000";
         }
 
-        service.ChangeConnectivity(isOnline);
-        service.ChangeBaseAddress(setAPI);
+        //await service.ResetLocalTicketsDB();
     }
+
+
     public async Task resetTickets()
     {
         await service.ResetLocalTicketsDB();

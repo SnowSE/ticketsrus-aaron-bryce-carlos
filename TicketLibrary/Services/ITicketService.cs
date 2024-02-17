@@ -17,7 +17,7 @@ public interface ITicketService
 
     public Task SetTimer(int seconds);
     public void ChangeConnectivity(bool _IsConnected);
-    public void ChangeBaseAddress(string newBaseAddress);
+    public Task ChangeBaseAddress(string newBaseAddress);
     public Task ResetLocalTicketsDB();
     public Task SyncDatabases();
 

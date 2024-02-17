@@ -24,7 +24,7 @@ public class WebTicketService : ITicketService
         return Task.CompletedTask;
     }
 
-    public void ChangeBaseAddress(string newBaseAddress)
+    public async Task ChangeBaseAddress(string newBaseAddress)
     {
         throw new NotImplementedException();
     }

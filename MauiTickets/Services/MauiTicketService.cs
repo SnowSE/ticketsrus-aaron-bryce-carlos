@@ -16,10 +16,15 @@ public class MauiTicketService : ITicketService
     {
         ticketAppDb = db;
     }
-    public void ChangeBaseAddress(string newBaseAddress)
+
+    public async Task ChangeBaseAddress(string newBaseAddress)
     {
+        client.Dispose();
+        client = new HttpClient();
         client.BaseAddress = new Uri(newBaseAddress);
+        await ResetLocalTicketsDB();
     }
+
     public async Task ResetLocalTicketsDB()
     {
         try
@@ -76,8 +81,6 @@ public class MauiTicketService : ITicketService
             List<Ticket> onlineTickets = await client.GetFromJsonAsync<List<Ticket>>("/api/Ticket/getall");
             List<Ticket> localTickets = await GetAllTicketsAsync();
 
-            List<Ticket> temp = new List<Ticket>();
-
             SyncOnlineToLocal(onlineTickets, localTickets);
             await SyncLocalToOnline(onlineTickets, localTickets);
         }
@@ -88,22 +91,20 @@ public class MauiTicketService : ITicketService
 
     private void SyncOnlineToLocal(List<Ticket> onlineTickets, List<Ticket> localTickets)
     {
-        Ticket tempTicket = new();
-
         foreach (Ticket ticket in onlineTickets)
         {
             if (localTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber) is null)
             {
-                tempTicket = ticket;
-                //tempTicket.Id = ticket.Id;
-                AddATicket(tempTicket);
+                AddATicket(ticket);
             }
             else
             {
                 if ((localTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber).IsScanned) != ticket.IsScanned)
                 {
+                    Ticket temp = localTickets.FirstOrDefault(q => q.Ticketnumber == ticket.Ticketnumber);
                     //set the local ticket equal to online
-                    UpdateATicket(ticket);
+                    temp.IsScanned = true;
+                    UpdateATicket(temp);
                 }
             }
         }
