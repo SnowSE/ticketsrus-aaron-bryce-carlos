@@ -11,7 +11,7 @@ services:
       - aaronticketdb
     build: . .
     ports:
-      -8998:8080
+      - 8998:8080
     environment:
       - Postgres=Server=aaronticketdb;Database=postgres;Port=5432;User id=aarondbuser;Password=postgres;"
     
