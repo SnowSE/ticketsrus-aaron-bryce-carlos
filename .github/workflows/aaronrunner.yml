@@ -1,0 +1,15 @@
+name: aaronrunner
+on: [push]
+jobs: 
+  DeployingPipline: 
+    runs-on: aaronlabel
+    steps: 
+      - name: "cleaning for aaron"
+        run: |
+          rm -rf ./ticketsrus-aaron-bryce-carlos
+      - name: "clone"
+        run: git clone https://${{secrets.AARON_SECRET_GITHUB}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+      - name: "run build"
+        run: |
+          cd ./ticketsrus-aaron-bryce-carlos/AaronDocker
+          docker compose up --build -d
