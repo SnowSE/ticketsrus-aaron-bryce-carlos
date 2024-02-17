@@ -9,7 +9,7 @@ services:
   aaronblazorapp:
     depends_on:
       - aaronticketdb
-    build: . .
+    build: ..
     ports:
       - 8998:8080
     environment:
