@@ -32,7 +32,7 @@ services:
       - "4766:9115"
    volumes:
       #- /etc/localtime:/etc/localtime:ro I'm not sure I need this
-      - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
+      - ../blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
    command: --config.file=/etc/blackbox/blackbox.yml
    depends_on:
     - blazor
@@ -47,7 +47,7 @@ services:
       - "4767:9090"
    volumes:
       #- /etc/localtime:/etc/localtime:ro Not sure I need this
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       #- prometheus:/prometheus Not sure I need this
    depends_on:
       - blackbox
@@ -63,7 +63,7 @@ services:
     volumes:
       #- /etc/localtime:/etc/localtime:ro Not Sure I need this
       - grafana-data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ../grafana/provisioning:/etc/grafana/provisioning
     restart: unless-stopped
     user: root
     ports:
