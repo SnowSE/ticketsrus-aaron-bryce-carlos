@@ -1,7 +1,9 @@
 using BlazorTickets.Components;
 using BlazorTickets.Data;
 using BlazorTickets.Services;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SixLabors.ImageSharp;
 using TicketLibrary.Services;
 
@@ -22,7 +24,12 @@ builder.Services.AddDbContext<PostgresContext>(options => options.UseNpgsql(buil
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Add health checks service
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -35,6 +42,18 @@ if (!app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+//Add healthcheck endpoint
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status200OK,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                }
+});
 
 app.MapControllers();
 app.UseStaticFiles();
