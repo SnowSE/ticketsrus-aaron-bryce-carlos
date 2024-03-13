@@ -6,7 +6,7 @@ jobs:
     steps:
       - name: "clean things up"
         run: |
-           # rm -rf ./ticketsrus-aaron-bryce-carlos
+           rm -rf ./ticketsrus-aaron-bryce-carlos
 
       - name: "clone project"
         run: git clone https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
