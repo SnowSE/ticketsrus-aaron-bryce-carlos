@@ -4,6 +4,8 @@ using BlazorTickets.Services;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using SixLabors.ImageSharp;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using TicketLibrary.Services;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -46,7 +48,12 @@ builder.Logging.AddOpenTelemetry(options =>
 
 
 
+//Add health checks service
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -72,6 +79,18 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+//Add healthcheck endpoint
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status200OK,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                }
+});
 
 app.MapControllers();
 app.UseStaticFiles();
