@@ -28,7 +28,7 @@ namespace TicketLibrary.Services
 
                     return filePath;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     throw;
                 }
