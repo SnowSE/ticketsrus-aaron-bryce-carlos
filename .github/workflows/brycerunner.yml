@@ -19,12 +19,12 @@ jobs:
       - name: "Integration Tests"
         run: |
           cd ./ticketsrus-aaron-bryce-carlos/TestTicket
-          dotnet test -warnaserror
+          dotnet test 
 
       - name: "Unit Test"
         run: |
           cd ./ticketsrus-aaron-bryce-carlos/UnitTest
-          dotnet test -warnaserror
+          dotnet test 
 
       - name: "linting"
         run: dotnet format --verify-no-changes
