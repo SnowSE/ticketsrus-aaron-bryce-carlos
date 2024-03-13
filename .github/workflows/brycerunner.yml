@@ -7,7 +7,7 @@ jobs:
       - name: "clean things up"
         run: |
           rm -rf ./ticketsrus-aaron-bryce-carlos
-          
+
       - name: "clone project"
         run: git clone https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
 
@@ -18,12 +18,12 @@ jobs:
 
       - name: "Integration Tests"
         run: |
-          cd ../TestTicket
+          cd ./ticketsrus-aaron-bryce-carlos/TestTicket
           dotnet test -warnaserror
 
       - name: "Unit Test"
         run: |
-          cd ../UnitTest
+          cd ./ticketsrus-aaron-bryce-carlos/UnitTest
           dotnet test -warnaserror
 
       - name: "linting"
