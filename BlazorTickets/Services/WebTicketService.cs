@@ -55,18 +55,21 @@ public class WebTicketService : ITicketService
         _context.SaveChanges();
     }
 
-    Task ITicketService.ChangeBaseAddress(string newBaseAddress)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+    async Task ITicketService.ChangeBaseAddress(string newBaseAddress)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
-        throw new NotImplementedException();
     }
 
-    Task ITicketService.SetTimer(int seconds)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+    async Task ITicketService.SetTimer(int seconds)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
-        throw new NotImplementedException();
     }
 
-    Task ITicketService.UpdateATicket(Ticket t)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+    async Task ITicketService.UpdateATicket(Ticket t)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
-        throw new NotImplementedException();
     }
 }

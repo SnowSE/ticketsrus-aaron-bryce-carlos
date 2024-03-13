@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Json;
 using TicketLibrary.Data;
-using TicketLibrary.Services;
 
 
 namespace TestTicket;
@@ -18,35 +17,6 @@ public class TicketTests(TicketFactory factory) : IClassFixture<TicketFactory>
         Assert.Equal(1, 1);
     }
 
-    [Fact]
-    public void SuccessfulScanUpdatesDatabase()
-    {
-
-        List<Ticket> list = new List<Ticket>();
-        //List<Ticket> list = new List<Ticket>();
-        // Ticket finalTestTicket = new Ticket();
-
-        // //arrange
-        // Ticket ticket = new Ticket();
-        // ticket.EventId = 1;
-        // ticket.IsScanned = false;
-        // ticket.Ticketnumber = "testTicketNumber";
-
-        // //act
-        // await client.PostAsJsonAsync("api/Ticket/addticket", ticket);
-        // //assume a scan in Maui sets local ticket to true
-        // ticket.IsScanned = true;
-
-        // list = await client.GetFromJsonAsync<List<Ticket>>("api/Ticket/getall");
-        // ticket.Id = list.FirstOrDefault(q => q.Ticketnumber == "testTicketNumber").Id;
-        // await client.PutAsJsonAsync("api/Ticket/updateticket", ticket);
-        // list = await client.GetFromJsonAsync<List<Ticket>>("api/Ticket/getall");
-
-        // //assert
-        // finalTestTicket = list.FirstOrDefault(q => q.Ticketnumber == "testTicketNumber");
-        //Assert.Equal(finalTestTicket.IsScanned, true);
-        Assert.True(true);
-    }
 
     [Fact]
     public async void FailedScanDoesntUpdatesDatabase()
