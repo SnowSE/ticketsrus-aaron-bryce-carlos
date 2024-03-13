@@ -27,7 +27,9 @@ jobs:
           dotnet test 
 
       - name: "linting"
-        run: dotnet format --verify-no-changes
+        run: |
+          cd ./ticketsrus-aaron-bryce-carlos
+          dotnet format --verify-no-changes
 
       - name: "Teams Notification"
         uses: skitionek/notify-microsoft-teams@master
