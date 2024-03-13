@@ -1,17 +1,14 @@
-using BlazorTickets.Components;
+﻿using BlazorTickets.Components;
 using BlazorTickets.Data;
 using BlazorTickets.Services;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using SixLabors.ImageSharp;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using TicketLibrary.Services;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using OpenTelemetry.Exporter;
+using TicketLibrary.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

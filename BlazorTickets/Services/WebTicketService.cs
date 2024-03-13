@@ -20,11 +20,11 @@ public class WebTicketService : ITicketService
             _context.Tickets.Add(t);
             _context.SaveChanges();
         }
-        catch (Exception ex) { throw; }
+        catch (Exception) { throw; }
         return Task.CompletedTask;
     }
 
-    public async Task ChangeBaseAddress(string newBaseAddress)
+    public void ChangeBaseAddress(string newBaseAddress)
     {
         throw new NotImplementedException();
     }
@@ -49,13 +49,23 @@ public class WebTicketService : ITicketService
         throw new NotImplementedException();
     }
 
-    public async Task UpdateATicket(Ticket t)
+    public void UpdateATicket(Ticket t)
     {
         _context.Tickets.Update(t);
         _context.SaveChanges();
     }
 
+    Task ITicketService.ChangeBaseAddress(string newBaseAddress)
+    {
+        throw new NotImplementedException();
+    }
+
     Task ITicketService.SetTimer(int seconds)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task ITicketService.UpdateATicket(Ticket t)
     {
         throw new NotImplementedException();
     }

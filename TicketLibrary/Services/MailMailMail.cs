@@ -1,9 +1,9 @@
-﻿using MailKit;
+﻿using System.Net.Mail;
+using MailKit;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Utils;
-using System.Net.Mail;
 
 
 namespace TicketLibrary.Services;
@@ -58,7 +58,7 @@ public class MailMailMail(IConfiguration _configuration)
 
             return "Email Sent";
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return "Bad Exception Happened";
         }

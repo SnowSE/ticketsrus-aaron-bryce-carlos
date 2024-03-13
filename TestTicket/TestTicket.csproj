@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
@@ -30,7 +31,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorTickets\BlazorTickets.csproj" />
-    <ProjectReference Include="..\MauiTickets\MauiTickets.csproj" />
   </ItemGroup>
 
 </Project>

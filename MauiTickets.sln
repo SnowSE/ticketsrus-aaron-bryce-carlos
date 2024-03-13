@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiTickets", "MauiTickets\MauiTickets.csproj", "{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTickets", "BlazorTickets\BlazorTickets.csproj", "{BBFE6486-8932-48AA-BA5A-4A7DDD3B0BA8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketLibrary", "TicketLibrary\TicketLibrary.csproj", "{08650D96-E44B-416C-8AA8-C1538729DDDD}"
@@ -17,12 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76145D34-4DA1-4EAE-B2E2-BF50AEE1CE5E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{BBFE6486-8932-48AA-BA5A-4A7DDD3B0BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBFE6486-8932-48AA-BA5A-4A7DDD3B0BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBFE6486-8932-48AA-BA5A-4A7DDD3B0BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU

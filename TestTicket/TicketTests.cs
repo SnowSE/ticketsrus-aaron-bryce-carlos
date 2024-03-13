@@ -1,20 +1,16 @@
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using TicketLibrary.Data;
-using MauiTickets.Services;
 using TicketLibrary.Services;
 
 
 namespace TestTicket;
 
-public class TicketTests : IClassFixture<TicketFactory>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+public class TicketTests(TicketFactory factory) : IClassFixture<TicketFactory>
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 {
-    public HttpClient client { get; set; }
+    public HttpClient client { get; set; } = factory.CreateDefaultClient();
     public TicketFactory ticketFactory { get; set; }
-
-    public TicketTests(TicketFactory factory)
-    {
-        client = factory.CreateDefaultClient();
-    }
 
     [Fact]
     public void CanHavePassingTest()
@@ -22,7 +18,8 @@ public class TicketTests : IClassFixture<TicketFactory>
         Assert.Equal(1, 1);
     }
 
-    [Fact] public async void SuccessfulScanUpdatesDatabase()
+    [Fact]
+    public async void SuccessfulScanUpdatesDatabase()
     {
 
         List<Ticket> list = new List<Ticket>();
@@ -38,19 +35,35 @@ public class TicketTests : IClassFixture<TicketFactory>
         await client.PostAsJsonAsync("api/Ticket/addticket", ticket);
         //assume a scan in Maui sets local ticket to true
         ticket.IsScanned = true;
-       
+
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         list = await client.GetFromJsonAsync<List<Ticket>>("api/Ticket/getall");
-        ticket.Id = list.FirstOrDefault(q => q.Ticketnumber == "testTicketNumber").Id;
+        Func<Ticket, bool> predicate = q => q.Ticketnumber == "testTicketNumber";
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+        ticket.Id = list.FirstOrDefault(predicate: predicate).Id;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8604 // Possible null reference argument.
         await client.PutAsJsonAsync("api/Ticket/updateticket", ticket);
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         list = await client.GetFromJsonAsync<List<Ticket>>("api/Ticket/getall");
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         //assert
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         finalTestTicket = list.FirstOrDefault(q => q.Ticketnumber == "testTicketNumber");
-        Assert.Equal(finalTestTicket.IsScanned, true);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+        Assert.Equal(expected: finalTestTicket.IsScanned, true);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
     }
 
-    [Fact] public async void FailedScanDoesntUpdatesDatabase()
+    [Fact]
+    public async void FailedScanDoesntUpdatesDatabase()
     {
 
         List<Ticket> list = new List<Ticket>();
@@ -67,14 +80,28 @@ public class TicketTests : IClassFixture<TicketFactory>
         //not posted so ticket is invalid
         await client.PostAsJsonAsync("api/Ticket/addticket", ticket);
 
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         list = await client.GetFromJsonAsync<List<Ticket>>("api/Ticket/getall");
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         ticket.Id = list.FirstOrDefault(q => q.Ticketnumber == "changedThing").Id;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8604 // Possible null reference argument.
         await client.PutAsJsonAsync("api/Ticket/updateticket", ticket);
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         list = await client.GetFromJsonAsync<List<Ticket>>("api/Ticket/getall");
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         //assert
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         finalTestTicket2 = list.FirstOrDefault(q => q.Ticketnumber == "changedThing");
-        Assert.Equal(finalTestTicket2.IsScanned, false);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+        Assert.Equal(expected: finalTestTicket2.IsScanned, false);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
     }
 

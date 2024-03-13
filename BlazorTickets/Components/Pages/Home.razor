@@ -22,6 +22,12 @@
 
 @code {
     public string QRCodeText { get; set; }
+
+    public Home(string qRCodeText)
+    {
+        QRCodeText = qRCodeText;
+    }
+
     public string QRByte = "place holder";
 
     protected override void OnInitialized()
