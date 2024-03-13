@@ -29,7 +29,7 @@ services:
   blackbox:
     # https://github.com/prometheus/blackbox_exporter/releases
     image: prom/blackbox-exporter:v0.23.0
-    container_name: blackbox
+    container_name: blackboxBryce
     restart: unless-stopped
     ports:
       - 9115:9115
@@ -43,7 +43,7 @@ services:
   prometheus:
     # https://github.com/prometheus/prometheus/releases
     image: prom/prometheus:v2.43.0
-    container_name: prometheus
+    container_name: prometheusBryce
     hostname: prometheus
     restart: unless-stopped
     ports:
@@ -60,7 +60,7 @@ services:
   grafana:
     # https://github.com/grafana/grafana/releases
     image: grafana/grafana:9.4.7
-    container_name: grafana
+    container_name: grafanaBryce
     #command:
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -82,7 +82,7 @@ services:
   loki:
     # https://github.com/grafana/loki/releases
     image: grafana/loki:2.8.0
-    container_name: loki
+    container_name: lokiBryce
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - /etc/localtime:/etc/localtime:ro      
@@ -96,7 +96,7 @@ services:
 
   otel-collector:
     # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
-    container_name: otel
+    container_name: otelBryce
     hostname: otel
     image: otel/opentelemetry-collector-contrib:0.75.0
     command: ["--config=/etc/otel-collector-config.yaml"]
