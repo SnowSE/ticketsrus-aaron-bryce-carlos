@@ -86,7 +86,7 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - /etc/localtime:/etc/localtime:ro      
-      - ./Loki/loki.yml:/etc/loki/local-config.yaml
+      - ./loki/loki.yml:/etc/loki/local-config.yaml
       - loki:/data/loki
     restart: unless-stopped
     ports:
