@@ -5,6 +5,7 @@
 @using System.Drawing;
 @using QRCoder;
 @using System.Drawing.Imaging;
+@inject ILogger log;
 
 <PageTitle>QR Code Generator</PageTitle>
 
@@ -22,6 +23,11 @@
 @code {
     public string QRCodeText { get; set; }
     public string QRByte = "place holder";
+
+    protected override void OnInitialized()
+    {
+        log.LogInformation("This is a log");
+    }
 
     public void GenerateQRCode()
     {
