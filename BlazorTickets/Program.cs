@@ -4,10 +4,10 @@ using BlazorTickets.Services;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
+//using OpenTelemetry.Logs;
+//using OpenTelemetry.Metrics;
+//using OpenTelemetry.Resources;
+//using OpenTelemetry.Trace;
 using TicketLibrary.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,20 +27,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 builder.Services.AddLogging();
 
-const string serviceName = "bryceservice";
+//const string serviceName = "bryceservice";
 
-builder.Logging.AddOpenTelemetry(options =>
-{
-    options
-        .SetResourceBuilder(
-            ResourceBuilder.CreateDefault()
-                .AddService(serviceName))
-            .AddOtlpExporter(opt =>
-            {
-                opt.Endpoint = new Uri("http://otel-collector:4317/");
-            })
-        .AddConsoleExporter();
-});
+//builder.Logging.AddOpenTelemetry(options =>
+//{
+//    options
+//        .SetResourceBuilder(
+//            ResourceBuilder.CreateDefault()
+//                .AddService(serviceName))
+//            .AddOtlpExporter(opt =>
+//            {
+//                opt.Endpoint = new Uri("http://otel-collector:4317/");
+//            })
+//        .AddConsoleExporter();
+//});
 
 
 

@@ -9,6 +9,10 @@ jobs:
           rm -rf ./ticketsrus-aaron-bryce-carlos
       - name: "clone"
         run: git clone https://${{secrets.AARON_SECRET_GITHUB}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+      # linting will be here
+      - name: "Integration tests"
+        # when running this command on the command line, add -it
+        run: docker run --rm -v "$(pwd):/app" -w /app/TestTicket --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
       - name: "run build"
         run: |
           cd ./ticketsrus-aaron-bryce-carlos/AaronDocker
