@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-int aaronsBadWarn = 7;
+//int aaronsBadWarn = 7;
 
 builder.Services.AddScoped<ITicketService, WebTicketService>();
 builder.Services.AddScoped<IEventService, WebEventService>();
