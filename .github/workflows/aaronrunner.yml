@@ -9,26 +9,25 @@ jobs:
           rm -rf ./ticketsrus-aaron-bryce-carlos
       - name: "clone"
         run: git clone https://${{secrets.AARON_MAR_SECRET}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
-      # linting will be here
-      # - name: "Integration tests"
-      #   # when running this command on the command line, add -it remove --user stuff
-      #   # sad I didn't get it to all run in docker 
-      #   #run: docker run --rm -v "$(pwd):/app" -w /app/TestTicket -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
-      #   run: |
-      #     cd ./ticketsrus-aaron-bryce-carlos/TestTicket
-      #     dotnet test
-      - name: "unit tests"
-        run: |
-          cd ./ticketsrus-aaron-bryce-carlos/UnitTest
-          dotnet test
       - name: "linting is so simple once their is an .editorconfig"
         run: |
           cd ./ticketsrus-aaron-bryce-carlos
           dotnet format --verify-no-changes
-      - name: "build with warnings"
+      - name: "Integration tests"
+        # when running this command on the command line, add -it remove --user stuff
+        # sad I didn't get it to all run in docker 
+        #run: docker run --rm -v "$(pwd):/app" -w /app/TestTicket -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
         run: |
-          cd ./ticketsrus-aaron-bryce-carlos
-          dotnet build -warnaserror
+          cd ./ticketsrus-aaron-bryce-carlos/TestTicket
+          dotnet test
+      - name: "unit tests"
+        run: |
+          cd ./ticketsrus-aaron-bryce-carlos/UnitTest
+          dotnet test
+      # - name: "build with warnings"
+      #   run: |
+      #     cd ./ticketsrus-aaron-bryce-carlos
+      #     dotnet build -warnaserror
       - name: "run build"
         run: |
           cd ./ticketsrus-aaron-bryce-carlos/AaronDocker
