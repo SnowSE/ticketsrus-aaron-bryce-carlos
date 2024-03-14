@@ -32,12 +32,11 @@ jobs:
         run: |
           cd ./ticketsrus-aaron-bryce-carlos/AaronDocker
           docker compose up --build -d
-          
       - name: "Teams Notification"
-          uses: skitionek/notify-microsoft-teams@master
-          if: always()
-          with:
-            webhook_url: ${{ secrets.AARONWEBHOOK }}
-            needs: ${{ toJson(needs) }}
-            job: ${{ toJson(job) }}
-            steps: ${{ toJson(steps) }}
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.AARONWEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}
