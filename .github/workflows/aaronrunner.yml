@@ -25,6 +25,10 @@ jobs:
         run: |
           cd ./ticketsrus-aaron-bryce-carlos
           dotnet format --verify-no-changes
+      - name: "build with warnings"
+        run: |
+          cd ./ticketsrus-aaron-bryce-carlos
+          dotnet build -warnaserror
       - name: "run build"
         run: |
           cd ./ticketsrus-aaron-bryce-carlos/AaronDocker
