@@ -32,7 +32,8 @@ jobs:
         run: |
           cd ./ticketsrus-aaron-bryce-carlos/AaronDocker
           docker compose up --build -d
-          - name: "Teams Notification"
+          
+      - name: "Teams Notification"
           uses: skitionek/notify-microsoft-teams@master
           if: always()
           with:
