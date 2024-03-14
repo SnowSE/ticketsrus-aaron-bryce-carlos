@@ -9,6 +9,6 @@ public class UnitTest1
         int num2 = 3;
         int result = (num1 * num2);
 
-        Assert.Equal(6, result + 7);
+        Assert.Equal(6, result);
     }
 }
