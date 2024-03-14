@@ -8,7 +8,7 @@ jobs:
         run: |
           rm -rf ./ticketsrus-aaron-bryce-carlos
       - name: "clone"
-        run: git clone https://${{secrets.AARON_SECRET_GITHUB}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+        run: git clone https://${{secrets.AARON_MAR_SECRET}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
       # linting will be here
       - name: "Integration tests"
         # when running this command on the command line, add -it
