@@ -19,7 +19,7 @@ jobs:
       #     dotnet test
       - name: "unit tests"
         run: |
-          cd ./ticketsrus-aaron-bryce-carlos/UnitTests
+          cd ./ticketsrus-aaron-bryce-carlos/UnitTest
           dotnet test
       - name: "linting is so simple once their is an .editorconfig"
         run: |
