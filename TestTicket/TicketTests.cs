@@ -14,7 +14,7 @@ public class TicketTests(TicketFactory factory) : IClassFixture<TicketFactory>
     [Fact]
     public void CanHavePassingTest()
     {
-        Assert.Equal(1, 2);
+        Assert.Equal(1, 1);
     }
 
 
