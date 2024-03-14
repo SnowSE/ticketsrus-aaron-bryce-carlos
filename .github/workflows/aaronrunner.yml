@@ -15,7 +15,7 @@ jobs:
         # sad I didn't get it to all run in docker 
         #run: docker run --rm -v "$(pwd):/app" -w /app/TestTicket -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet test
         run: |
-          cd $(pwd)/TestTicket
+          cd ./ticketsrus-aaron-bryce-carlos/TestTicket
           dotnet test
       - name: "run build"
         run: |
