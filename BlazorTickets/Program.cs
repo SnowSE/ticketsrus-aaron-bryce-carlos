@@ -6,12 +6,19 @@ using BlazorTickets.Services;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+<<<<<<< HEAD
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+=======
+//using OpenTelemetry.Logs;
+//using OpenTelemetry.Metrics;
+//using OpenTelemetry.Resources;
+//using OpenTelemetry.Trace;
+>>>>>>> 66b01ab1230c00046ec42d5b2d49ae1a2c7ce667
 using TicketLibrary.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +27,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+//int aaronsBadWarn = 7;
 
 builder.Services.AddScoped<ITicketService, WebTicketService>();
 builder.Services.AddScoped<IEventService, WebEventService>();
@@ -32,6 +40,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 builder.Services.AddLogging();
 
+<<<<<<< HEAD
 const string serviceName = "bryceservice";
 var serviceVersion = "1.0.0";
 
@@ -46,6 +55,22 @@ builder.Logging.AddOpenTelemetry(options =>
         o.Endpoint = new Uri("http://otel-collector:4317")
       );
 });
+=======
+//const string serviceName = "bryceservice";
+
+//builder.Logging.AddOpenTelemetry(options =>
+//{
+//    options
+//        .SetResourceBuilder(
+//            ResourceBuilder.CreateDefault()
+//                .AddService(serviceName))
+//            .AddOtlpExporter(opt =>
+//            {
+//                opt.Endpoint = new Uri("http://otel-collector:4317/");
+//            })
+//        .AddConsoleExporter();
+//});
+>>>>>>> 66b01ab1230c00046ec42d5b2d49ae1a2c7ce667
 
 builder.Services.AddOpenTelemetry()
   .ConfigureResource(r => r.AddService(serviceName))
