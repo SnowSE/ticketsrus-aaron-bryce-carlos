@@ -89,8 +89,8 @@ services:
       - ./Loki/loki.yml:/etc/loki/local-config.yaml
       - loki:/data/loki
     restart: unless-stopped
-    ports:
-      - 3100:3100
+    # ports:
+    #   - 3100:3100
     networks:
       otel:
 
@@ -109,6 +109,15 @@ services:
       - 4317:4317   # OTLP gRPC receiver
       - 9200:55679  # zpages
       - 13133:13133 # Health check
+    networks:
+      otel:
+
+  zipkin:
+    container_name: zipkinBryce
+    image: openzipkin/zipkin
+    restart: always
+    ports:
+      - 1598:9411
     networks:
       otel:
 
