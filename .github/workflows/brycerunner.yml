@@ -6,7 +6,6 @@ jobs:
     steps:
       - name: "clean things up"
         run: |
-          cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
           ls -la
           docker compose down -v
           rm -rf ./ticketsrus-aaron-bryce-carlos
