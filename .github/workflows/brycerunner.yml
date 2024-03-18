@@ -39,4 +39,8 @@ jobs:
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
+      
+      - name: "Deploy to Server"
+        run: |
+          scp -r ./ticketsrus-aaron-bryce-carlos/BryceDocker username@server:/path/to/destination
     
