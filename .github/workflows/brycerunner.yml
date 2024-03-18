@@ -7,7 +7,7 @@ jobs:
       - name: "clean things up"
         run: |
           pwd
-          ./ticketsrus-aaron-bryce-carlos/BryceDocker
+          cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
           docker compose down -v
           rm -rf ./ticketsrus-aaron-bryce-carlos
 
