@@ -43,7 +43,7 @@ builder.Logging.AddOpenTelemetry(options =>
             ResourceBuilder.CreateDefault()
                 .AddService(serviceName))
         .AddConsoleExporter()
-        .AddOtlpExporter(o => 
+        .AddOtlpExporter(o =>
         o.Endpoint = new Uri("http://otel-collector:4317")
       );
 });
@@ -56,7 +56,7 @@ builder.Services.AddOpenTelemetry()
       .AddSource(bryceTrace.serviceName1)
       .AddSource(bryceTrace.serviceName2)
       .AddConsoleExporter()
-      .AddOtlpExporter(o => 
+      .AddOtlpExporter(o =>
         o.Endpoint = new Uri("http://otel-collector:4317")))
   .WithMetrics(metrics => metrics
     // Metrics provider from OpenTelemetry
