@@ -20,11 +20,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-//int aaronsBadWarn = 7;
 
 builder.Services.AddScoped<ITicketService, WebTicketService>();
 builder.Services.AddScoped<IEventService, WebEventService>();
-//builder.Services.AddScoped<ILogger, ILogger>();
 builder.Services.AddControllers();
 builder.Services.AddScoped<MailMailMail>();
 builder.Services.AddDbContext<PostgresContext>(options => options.UseNpgsql(builder.Configuration["Postgres"]));

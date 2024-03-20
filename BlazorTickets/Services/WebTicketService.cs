@@ -4,12 +4,26 @@ using TicketLibrary.Data;
 using TicketLibrary.Services;
 namespace BlazorTickets.Services;
 
-public class WebTicketService : ITicketService
+public partial class WebTicketService : ITicketService
 {
+    private readonly ILogger<WebTicketService> _logger;
+
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "Getting All Tickets.")]
+    static partial void GetAllTickets(ILogger logger, string description);
+
+    [LoggerMessage(Level = LogLevel.Error, Message = "Testing the tickets.")]
+    static partial void TestTickets1(ILogger logger, string description);
+
+    [LoggerMessage(Level = LogLevel.Warning, Message = "Something about tickets.")]
+    static partial void TestTickets2(ILogger logger, string description);
+
+
     PostgresContext _context;
-    public WebTicketService(PostgresContext context)
+    public WebTicketService(PostgresContext context, ILogger<WebTicketService> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public Task AddATicket(Ticket t)
@@ -24,6 +38,28 @@ public class WebTicketService : ITicketService
         return Task.CompletedTask;
     }
 
+    public void InvokeTicketsLogger1(int number1)
+    {
+        TestTickets1(_logger, $"Inside invokeTickets now. {number1}");
+    }
+
+    public void InvokeTicketsLogger2(int number2)
+    {
+        TestTickets1(_logger, $"Invoke number 2 for tickets {number2}");
+    }
+
+    public async Task<List<Ticket>> GetAllTicketsAsync()
+    {
+        GetAllTickets(_logger, $"Inside of getAllTickets. Number of tickets is {_context.Tickets.Count()}");
+        return await _context.Tickets.ToListAsync<Ticket>();
+    }
+
+
+
+
+
+
+
     public void ChangeBaseAddress(string newBaseAddress)
     {
         throw new NotImplementedException();
@@ -34,10 +70,6 @@ public class WebTicketService : ITicketService
         throw new NotImplementedException();
     }
 
-    public async Task<List<Ticket>> GetAllTicketsAsync()
-    {
-        return await _context.Tickets.ToListAsync<Ticket>();
-    }
 
     public Task ResetLocalTicketsDB()
     {

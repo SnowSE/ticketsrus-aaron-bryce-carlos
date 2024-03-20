@@ -33,6 +33,9 @@
     protected override async Task OnInitializedAsync()
     {
         events = await eventService.GetAllEventsAsync();
+        eventService.InvokeEventsLogger1(1);
+        eventService.InvokeEventsLogger2(2);
+
     }
 
     //send the email with qr code
