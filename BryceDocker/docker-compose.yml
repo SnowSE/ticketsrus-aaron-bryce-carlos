@@ -94,6 +94,16 @@ services:
     networks:
       otel:
 
+  proxy:
+    image: nginx
+    container_name: bryceproxy
+    ports:
+      - 9505:80
+    networks:
+      otel:
+    volumes:
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+
   otel-collector:
     # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
     container_name: otelBryce
