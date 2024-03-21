@@ -10,5 +10,9 @@ namespace TicketLibrary.Services;
 public interface IEventService
 {
     public Task<List<Event>> GetAllEventsAsync();
+    public void InvokeEventsLogger1(int number);
+    public void InvokeEventsLogger2(int number);
+
+
 
 }

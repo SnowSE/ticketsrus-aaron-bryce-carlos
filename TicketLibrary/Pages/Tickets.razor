@@ -36,7 +36,11 @@
     public List<Event> events = new();
 
     protected override async Task OnInitializedAsync(){
+
         tickets = await ticketService.GetAllTicketsAsync();
+        ticketService.InvokeTicketsLogger1(1);
+        ticketService.InvokeTicketsLogger2(2);
+
         events = await eventService.GetAllEventsAsync();
     }
 }
