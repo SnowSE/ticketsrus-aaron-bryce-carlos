@@ -33,6 +33,7 @@ public partial class WebTicketService : ITicketService
             t.Id = _context.Tickets.Max(t => t.Id) + 1;
             _context.Tickets.Add(t);
             _context.SaveChanges();
+            aaronMetrics.ticketCreationCounter.Add(1);
         }
         catch (Exception) { throw; }
         return Task.CompletedTask;

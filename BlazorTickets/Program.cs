@@ -31,43 +31,51 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 builder.Services.AddLogging();
 
-const string serviceName = "bryceservice";
+const string serviceName = "aaronservice";
 var serviceVersion = "1.0.0";
 
-builder.Logging.AddOpenTelemetry(options =>
-{
-    options
-        .SetResourceBuilder(
-            ResourceBuilder.CreateDefault()
-                .AddService(serviceName))
-        .AddConsoleExporter()
-        .AddOtlpExporter(o =>
-        o.Endpoint = new Uri("http://otel-collector:4317")
-      );
-});
+// builder.Logging.AddOpenTelemetry(options =>
+// {
+//     options
+//         .SetResourceBuilder(
+//             ResourceBuilder.CreateDefault()
+//                 .AddService(serviceName))
+//         .AddConsoleExporter()
+//         .AddOtlpExporter(o =>
+//         o.Endpoint = new Uri("http://otel-collector:4317")
+//       );
+// });
 
-builder.Services.AddOpenTelemetry()
-  .ConfigureResource(r => r.AddService(serviceName))
-  .WithTracing(b =>
-      b
-      .AddAspNetCoreInstrumentation()
-      .AddSource(bryceTrace.serviceName1)
-      .AddSource(bryceTrace.serviceName2)
-      .AddConsoleExporter()
-      .AddOtlpExporter(o =>
-        o.Endpoint = new Uri("http://otel-collector:4317")))
-  .WithMetrics(metrics => metrics
-    // Metrics provider from OpenTelemetry
-    .AddAspNetCoreInstrumentation()
-    .AddMeter(bryceMetrics.Meter.Name)
-    .AddConsoleExporter()
-    .AddOtlpExporter(o =>
-        o.Endpoint = new Uri("http://otel-collector:4317"))
-  );
+// builder.Services.AddOpenTelemetry()
+//   .ConfigureResource(r => r.AddService(serviceName))
+//   .WithTracing(b =>
+//       b
+//       .AddAspNetCoreInstrumentation()
+//       .AddSource(bryceTrace.serviceName1)
+//       .AddSource(bryceTrace.serviceName2)
+//       .AddConsoleExporter()
+//       .AddOtlpExporter(o =>
+//         o.Endpoint = new Uri("http://otel-collector:4317")))
+//   .WithMetrics(metrics => metrics
+//     // Metrics provider from OpenTelemetry
+//     .AddAspNetCoreInstrumentation()
+//     .AddMeter(bryceMetrics.Meter.Name)
+//     .AddConsoleExporter()
+//     .AddOtlpExporter(o =>
+//         o.Endpoint = new Uri("http://otel-collector:4317"))
+//   );
 
 
 //Add health checks service
 builder.Services.AddHealthChecks();
+
+builder.Services.AddOpenTelemetry()
+    .WithMetrics(builder => builder
+        .AddMeter(aaronMetrics.meterName)
+        .AddPrometheusExporter()
+        //.AddConsoleExporter()
+        .AddAspNetCoreInstrumentation()
+    );
 
 var app = builder.Build();
 
@@ -103,6 +111,8 @@ app.MapControllers();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+//
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
