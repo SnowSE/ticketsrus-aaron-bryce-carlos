@@ -20,6 +20,7 @@ public interface ITicketService
     public Task ChangeBaseAddress(string newBaseAddress);
     public Task ResetLocalTicketsDB();
     public Task SyncDatabases();
-
+    public void InvokeTicketsLogger1(int number);
+    public void InvokeTicketsLogger2(int number);
 
 }

@@ -1,5 +1,6 @@
 ﻿@page "/counter"
 @rendermode InteractiveServer
+@inject ILogger<Counter> logger;
 
 <PageTitle>Counter</PageTitle>
 
@@ -11,6 +12,10 @@
 
 @code {
     private int currentCount = 0;
+
+    protected override void OnInitialized()
+    {
+    }
 
     private void IncrementCount()
     {
