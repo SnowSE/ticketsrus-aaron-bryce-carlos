@@ -4,6 +4,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: aarondbuser
+
     volumes:
       - ../TestTicket/20240215.01.21.01.sql:/docker-entrypoint-initdb.d/a.sql
   aaronblazorapp:
@@ -14,5 +15,15 @@ services:
       - 8998:8080
     environment:
       - Postgres=Server=aaronticketdb;Database=postgres;Port=5432;User id=aarondbuser;Password=postgres;"
+      - ASPNETCORE_ENVIRONMENT=Development
     
 
+  proxy: 
+    image: nginx
+    container_name: "aaron_proxy"
+    ports:
+      - 5467:80
+    volumes:
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - aaronblazorapp
