@@ -1,4 +1,5 @@
-﻿using BlazorTickets.Data;
+﻿using System.Diagnostics.Metrics;
+using BlazorTickets.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TicketLibrary.Data;
@@ -31,6 +32,7 @@ public partial class WebEventService : IEventService
     public async Task<List<Event>> GetAllEventsAsync()
     {
         GetAllEvents(_logger, $"Inside getAllEvents now. Number of events is {_context.Events.Count()}");
+        bryceMetrics.upDownCounter.Add(4);
         return await _context.Events.ToListAsync<Event>();
     }
 
@@ -41,6 +43,7 @@ public partial class WebEventService : IEventService
 
     public void InvokeEventsLogger2(int num2)
     {
+        bryceMetrics.observableInt += 5;
         TestEvents2(_logger, $"invoking events again. {num2}");
 
     }

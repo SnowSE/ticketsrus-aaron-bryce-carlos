@@ -41,16 +41,21 @@ public partial class WebTicketService : ITicketService
     public void InvokeTicketsLogger1(int number1)
     {
         TestTickets1(_logger, $"Inside invokeTickets now. {number1}");
+        bryceMetrics.observableUpDown += 5;
     }
 
     public void InvokeTicketsLogger2(int number2)
     {
         TestTickets1(_logger, $"Invoke number 2 for tickets {number2}");
+        bryceMetrics.observableUpDown -= 2;
     }
 
     public async Task<List<Ticket>> GetAllTicketsAsync()
     {
+        List<Ticket> myList = await _context.Tickets.ToListAsync<Ticket>();
+        bryceMetrics.histogram.Record(myList.Count);
         GetAllTickets(_logger, $"Inside of getAllTickets. Number of tickets is {_context.Tickets.Count()}");
+
         return await _context.Tickets.ToListAsync<Ticket>();
     }
 
