@@ -42,7 +42,8 @@
         log.LogInformation("This is a log");
 
         using var myActivity = bryceTrace.MyActivitySource1.StartActivity("Initialize");
-
+        
+        aaronMetrics.reloadCount += 1;
         bryceMetrics.hitCount.Add(5);
     }
 
