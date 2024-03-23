@@ -34,6 +34,7 @@ public partial class WebTicketService : ITicketService
             _context.Tickets.Add(t);
             _context.SaveChanges();
             aaronMetrics.ticketCreationCounter.Add(1);
+            aaronMetrics.unUpdatedTicketCounter.Add(1);
         }
         catch (Exception) { throw; }
         return Task.CompletedTask;
@@ -86,6 +87,7 @@ public partial class WebTicketService : ITicketService
     {
         _context.Tickets.Update(t);
         _context.SaveChanges();
+        aaronMetrics.unUpdatedTicketCounter.Add(-1);
     }
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
