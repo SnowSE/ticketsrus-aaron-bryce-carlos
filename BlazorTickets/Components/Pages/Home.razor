@@ -44,6 +44,8 @@
         using var myActivity = bryceTrace.MyActivitySource1.StartActivity("Initialize");
         
         aaronMetrics.reloadCount += 1;
+        aaronMetrics.homeLoadGagePiece++;
+        aaronMetrics.histogram.Record(4);
         bryceMetrics.hitCount.Add(5);
     }
 

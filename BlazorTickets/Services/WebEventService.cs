@@ -30,6 +30,8 @@ public partial class WebEventService : IEventService
     }
     public async Task<List<Event>> GetAllEventsAsync()
     {
+        //this is called every time the page is loaded
+        aaronMetrics.eventLoadGagePiece++;
         GetAllEvents(_logger, $"Inside getAllEvents now. Number of events is {_context.Events.Count()}");
         return await _context.Events.ToListAsync<Event>();
     }

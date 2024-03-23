@@ -52,6 +52,8 @@ public partial class WebTicketService : ITicketService
 
     public async Task<List<Ticket>> GetAllTicketsAsync()
     {
+        //this is called everytime the tickets page is loaded
+        aaronMetrics.ticketLoadGagePiece++;
         GetAllTickets(_logger, $"Inside of getAllTickets. Number of tickets is {_context.Tickets.Count()}");
         return await _context.Tickets.ToListAsync<Ticket>();
     }
