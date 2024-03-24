@@ -2,7 +2,7 @@ name: aaronrunner
 on: [push]
 jobs: 
   DeployingPipline: 
-    runs-on: aaronlabel
+    runs-on: tickets-aaron
     steps: 
       - name: "cleaning for aaron"
         run: |
