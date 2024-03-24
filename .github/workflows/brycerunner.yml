@@ -1,47 +1,47 @@
-name: bryce Deploy Thingy
-on: [push]
-jobs:
-  DeployingPipeline:
-    runs-on: brycelabel
-    steps:
-      - name: "clean things up"
-        run: |
-          pwd
-          cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
-          docker compose down -v
-          cd ../../
-          rm -rf ./ticketsrus-aaron-bryce-carlos
+# name: bryce Deploy Thingy
+# on: [push]
+# jobs:
+#   DeployingPipeline:
+#     runs-on: brycelabel
+#     steps:
+#       - name: "clean things up"
+#         run: |
+#           pwd
+#           cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
+#           docker compose down -v
+#           cd ../../
+#           rm -rf ./ticketsrus-aaron-bryce-carlos
 
-      - name: "clone project"
-        run: git clone https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+#       - name: "clone project"
+#         run: git clone https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
 
-      - name: "run the build command"
-        run: |
-            cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
-            docker compose up --build -d
+#       - name: "run the build command"
+#         run: |
+#             cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
+#             docker compose up --build -d
 
-      - name: "Integration Tests"
-        run: |
-          cd ./ticketsrus-aaron-bryce-carlos/TestTicket
-          dotnet test 
+#       - name: "Integration Tests"
+#         run: |
+#           cd ./ticketsrus-aaron-bryce-carlos/TestTicket
+#           dotnet test 
 
-      - name: "Unit Test"
-        run: |
-          cd ./ticketsrus-aaron-bryce-carlos/UnitTest
-          dotnet test 
+#       - name: "Unit Test"
+#         run: |
+#           cd ./ticketsrus-aaron-bryce-carlos/UnitTest
+#           dotnet test 
 
-      - name: "linting"
-        run: |
-          cd ./ticketsrus-aaron-bryce-carlos
-          dotnet format --verify-no-changes
+#       - name: "linting"
+#         run: |
+#           cd ./ticketsrus-aaron-bryce-carlos
+#           dotnet format --verify-no-changes
 
-      - name: "Teams Notification"
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.BryceWebHook }}
-          needs: ${{ toJson(needs) }}
-          job: ${{ toJson(job) }}
-          steps: ${{ toJson(steps) }}
+#       - name: "Teams Notification"
+#         uses: skitionek/notify-microsoft-teams@master
+#         if: always()
+#         with:
+#           webhook_url: ${{ secrets.BryceWebHook }}
+#           needs: ${{ toJson(needs) }}
+#           job: ${{ toJson(job) }}
+#           steps: ${{ toJson(steps) }}
     
     

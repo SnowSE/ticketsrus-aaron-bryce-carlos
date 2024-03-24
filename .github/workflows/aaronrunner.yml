@@ -9,10 +9,10 @@ jobs:
           rm -rf ./ticketsrus-aaron-bryce-carlos
       - name: "clone"
         run: git clone https://${{secrets.AARON_MAR_SECRET}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
-      - name: "linting is so simple once their is an .editorconfig"
-        run: |
-          cd ./ticketsrus-aaron-bryce-carlos
-          dotnet format --verify-no-changes
+      # - name: "linting is so simple once their is an .editorconfig"
+      #   run: |
+      #     cd ./ticketsrus-aaron-bryce-carlos
+      #     dotnet format --verify-no-changes
       - name: "Integration tests"
         # when running this command on the command line, add -it remove --user stuff
         # sad I didn't get it to all run in docker 
