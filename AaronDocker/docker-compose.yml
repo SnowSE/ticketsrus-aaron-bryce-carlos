@@ -29,7 +29,7 @@ services:
     image: nginx
     container_name: "aaron_proxy"
     ports:
-      - 5467:80
+      - 3366:80
     volumes:
       - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
@@ -50,15 +50,15 @@ services:
       - 3000:3000
     restart: unless-stopped
     environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=admin
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
-      # - GF_SECURITY_ADMIN_USER=admin
-      # - GF_SECURITY_ADMIN_PASSWORD=grafana
+      # - GF_AUTH_ANONYMOUS_ENABLED=true
+      # - GF_AUTH_ANONYMOUS_ORG_ROLE=admin
+      # - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
       - ./Grafana-dataSources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-      - grafanadata:/var/lib/grafana
+      - grafana-data:/var/lib/grafana  #used to be grafanadata:
 volumes:
-  grafanadata: #declared is all it needs
+  grafana-data: #declared is all it needs
   prometheusdata: 
   postgresdata:
