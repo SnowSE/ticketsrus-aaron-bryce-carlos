@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: aarondbuser
     volumes:
       - ../TestTicket/20240215.01.21.01.sql:/docker-entrypoint-initdb.d/a.sql
-      - postgresdata:/var/lib/postgresql
+     # - postgresdata:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 10s

@@ -8,7 +8,7 @@ jobs:
         run: |
           rm -rf ./ticketsrus-aaron-bryce-carlos
       - name: "clone"
-        run: git clone https://${{secrets.AARON_MAR_SECRET}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+        run: git clone https://${{secrets.AARON_MAR_SECRET}}@github.com/AaronForSnow/ticketsrus-aaron-bryce-carlos.git
       # - name: "linting is so simple once their is an .editorconfig"
       #   run: |
       #     cd ./ticketsrus-aaron-bryce-carlos
