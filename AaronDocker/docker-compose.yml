@@ -25,7 +25,7 @@ services:
       - Postgres=Host=aaronticketdb;Database=aarondbuser;Port=5432;User id=aarondbuser;Password=postgres;
       - ASPNETCORE_ENVIRONMENT=Development
     
-  proxy: 
+  proxy:   #######REPlaced by swag
     image: nginx
     container_name: "aaron_proxy"
     ports:
@@ -34,6 +34,35 @@ services:
       - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - aaronblazorapp
+
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=http://ticketsaaron.duckdns.org
+      #- SUBDOMAINS=www,
+      - VALIDATION=duckdns
+      # - CERTPROVIDER= #optional
+      # - DNSPLUGIN=cloudflare #optional
+      - DUCKDNSTOKEN=b4445f65-44bf-4cd6-b92d-6ae56f0ee085
+      # - EMAIL=<e-mail> #optional
+      # - ONLY_SUBDOMAINS=false #optional
+      # - EXTRA_DOMAINS=<extradomains> #optional
+      - STAGING=true
+    volumes:
+      - swagdata:/config
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
+
+    
 
   prometheus:
     image: prom/prometheus
@@ -62,3 +91,4 @@ volumes:
   grafana-data: #declared is all it needs
   prometheusdata: 
   postgresdata:
+  swagdata:
