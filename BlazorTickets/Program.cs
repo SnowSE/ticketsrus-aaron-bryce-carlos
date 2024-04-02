@@ -34,17 +34,17 @@ builder.Services.AddLogging();
 const string serviceName = "aaronservice";
 var serviceVersion = "1.0.0";
 
-// builder.Logging.AddOpenTelemetry(options =>
-// {
-//     options
-//         .SetResourceBuilder(
-//             ResourceBuilder.CreateDefault()
-//                 .AddService(serviceName))
-//         .AddConsoleExporter()
-//         .AddOtlpExporter(o =>
-//         o.Endpoint = new Uri("http://otel-collector:4317")
-//       );
-// });
+builder.Logging.AddOpenTelemetry(options =>
+{
+    options
+        .SetResourceBuilder(
+            ResourceBuilder.CreateDefault()
+                .AddService(serviceName))
+        //.AddConsoleExporter()
+        .AddOtlpExporter(o =>
+        o.Endpoint = new Uri("http://otel_collector:4317")
+      );
+});
 
 // builder.Services.AddOpenTelemetry()
 //   .ConfigureResource(r => r.AddService(serviceName))
