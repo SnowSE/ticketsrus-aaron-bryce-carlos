@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: bryce2
-  name: bryceblazorapp-ingress
+  name: blazor-web-ingress
 spec:
   ingressClassName: nginx
   rules:
@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: bryceblazorapp-service
+            name: blazor-web-service
             port:
               number: 80

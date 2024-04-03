@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: bryce2
-  name: bryceblazorapp-service
+  name: blazor-web-service
 spec:
   type: ClusterIP
   selector:
-    app: bryceblazorapp
+    app: blazor-web
   ports:
     - port: 80
       targetPort: 80
