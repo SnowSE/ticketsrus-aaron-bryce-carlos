@@ -17,8 +17,9 @@ jobs:
 
       - name: "run the build command"
         run: |
-            cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
+            # cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
             # docker compose up --build -d
+            cd ./ticketsrus-aaron-bryce-carlos/
             docker build -t 144.17.92:5000/bryce/bryceblazorapp:1 .
             docker push 144.17.92:5000/bryce/bryceblazorapp:1 
 
