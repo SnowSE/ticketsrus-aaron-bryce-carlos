@@ -7,8 +7,8 @@ services:
       POSTGRES_USER: postgres
     volumes:
       - ../TestTicket/20240215.01.21.01.sql:/docker-entrypoint-initdb.d/a.sql
-    networks:
-      - otel
+    # networks:
+    #   - otel
 
 
   bryceblazorapp:
@@ -23,8 +23,8 @@ services:
       retries: 5
       start_period: 20s
       timeout: 10s
-    networks:
-      - otel
+    # networks:
+    #   - otel
 
   blackbox:
     # https://github.com/prometheus/blackbox_exporter/releases
@@ -37,8 +37,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
     command: --config.file=/etc/blackbox/blackbox.yml
-    networks:
-      otel:
+    # networks:
+    #   otel:
 
   prometheus:
     # https://github.com/prometheus/prometheus/releases
@@ -54,8 +54,8 @@ services:
       - prometheus:/prometheus
     depends_on:
       - blackbox
-    networks:
-      otel:
+    # networks:
+    #   otel:
   
   grafana:
     # https://github.com/grafana/grafana/releases
@@ -76,8 +76,8 @@ services:
     depends_on:
       - prometheus 
       - loki    
-    networks:
-      otel:
+    # networks:
+    #   otel:
 
   loki:
     # https://github.com/grafana/loki/releases
@@ -90,19 +90,42 @@ services:
       - loki:/data/loki
     restart: unless-stopped
     # ports:
-    #   - 3100:3100
-    networks:
-      otel:
+    # #   - 3100:3100
+    # networks:
+    #   otel:
 
-  proxy:
-    image: nginx
-    container_name: bryceproxy
-    ports:
-      - 9505:80
-    networks:
-      otel:
+  # proxy:
+  #   image: nginx
+  #   container_name: bryceproxy
+  #   ports:
+  #     - 9505:80
+  #   networks:
+  #     otel:
+  #   volumes:
+  #     - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=bryce-telemetry.duckdns.org
+      - SUBDOMAINS=www,
+      - VALIDATION=duckdns
+      - DUCKDNSTOKEN=1257e8b5-c71f-4f50-9232-96bc999385ee
+      - STAGING=false #optional
     volumes:
-      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+      - swag:/config
+      - ./nginx-default.conf:/config/nginx/site-confs/default.conf
+    ports:
+      - 5698:443
+    restart: unless-stopped
+    # networks:
+    #   otel:
 
   otel-collector:
     # https://github.com/open-telemetry/opentelemetry-collector-contrib/releases
@@ -119,8 +142,8 @@ services:
       - 4317:4317   # OTLP gRPC receiver
       - 9200:55679  # zpages
       - 13133:13133 # Health check
-    networks:
-      otel:
+    # networks:
+    #   otel:
 
   zipkin:
     container_name: zipkinBryce
@@ -128,13 +151,14 @@ services:
     restart: always
     ports:
       - 1598:9411
-    networks:
-      otel:
+    # networks:
+    #   otel:
 
-networks:
-  otel:
+# networks:
+#   otel:
 
 volumes:
   prometheus:
   grafana-data: 
   loki:
+  swag:

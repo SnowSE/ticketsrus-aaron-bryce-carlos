@@ -15,19 +15,19 @@ public static class bryceMetrics
     public static Counter<int> hitCount = Meter.CreateCounter<int>("greetings.count");
 
     //UpDownCounter
-    public static UpDownCounter<int> upDownCounter = Meter.CreateUpDownCounter<int> ("upDownThingCount", "1.0.0");
+    public static UpDownCounter<int> upDownCounter = Meter.CreateUpDownCounter<int>("upDownThingCount", "1.0.0");
 
     //Observable Counter
-    public static ObservableCounter<int> observableCounter = Meter.CreateObservableCounter<int> ("observableCounterCount", () => observableInt);
+    public static ObservableCounter<int> observableCounter = Meter.CreateObservableCounter<int>("observableCounterCount", () => observableInt);
 
     //ObservableUpDownCounter
-    public static ObservableUpDownCounter<int> observableUpDownCounter = Meter.CreateObservableUpDownCounter<int> ("observableUpDownCount", () => observableUpDown);
+    public static ObservableUpDownCounter<int> observableUpDownCounter = Meter.CreateObservableUpDownCounter<int>("observableUpDownCount", () => observableUpDown);
 
     //ObservableGauge
-    public static ObservableGauge<int> observableGauge = Meter.CreateObservableGauge<int> ("observableGaugeCount", () => DateTime.Now.Second);
+    public static ObservableGauge<int> observableGauge = Meter.CreateObservableGauge<int>("observableGaugeCount", () => DateTime.Now.Second);
 
     //Histogram
-    public static Histogram<int> histogram = Meter.CreateHistogram<int> ("histogramCount", "1.0.0");
+    public static Histogram<int> histogram = Meter.CreateHistogram<int>("histogramCount", "1.0.0");
 
 
 }

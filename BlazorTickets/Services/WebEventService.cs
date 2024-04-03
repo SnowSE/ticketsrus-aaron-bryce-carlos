@@ -21,7 +21,7 @@ public partial class WebEventService : IEventService
 
     [LoggerMessage(Level = LogLevel.Warning, Message = "Something about events.")]
     static partial void TestEvents2(ILogger logger, string description);
- 
+
 
     PostgresContext _context;
     public WebEventService(PostgresContext context, ILogger<WebEventService> logger)
