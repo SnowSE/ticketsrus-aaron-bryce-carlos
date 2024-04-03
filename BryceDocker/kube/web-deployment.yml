@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: bryce2
+  name: bryceblazorapp-deployment
+  labels:
+    app: bryceblazorapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bryceblazorapp
+  template:
+    metadata:
+      labels:
+        app: bryceblazorapp
+    spec:
+      containers:
+      - name: bryceblazorapp
+        image: 144.17.92.12:5000/bryce/bryceblazorapp:1
+        ports:
+        - containerPort: 8080

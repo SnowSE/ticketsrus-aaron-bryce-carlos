@@ -18,30 +18,35 @@ jobs:
       - name: "run the build command"
         run: |
             cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
-            docker compose up --build -d
+            # docker compose up --build -d
+            docker build -t 144.17.92:5000/bryce/bryceblazorapp:1 .
+            docker push 144.17.92:5000/bryce/bryceblazorapp:1 
 
-      - name: "Integration Tests"
-        run: |
-          cd ./ticketsrus-aaron-bryce-carlos/TestTicket
-          dotnet test 
+            kubectl apply -f kube/
 
-      - name: "Unit Test"
-        run: |
-          cd ./ticketsrus-aaron-bryce-carlos/UnitTest
-          dotnet test 
+
+      # - name: "Integration Tests"
+      #   run: |
+      #     cd ./ticketsrus-aaron-bryce-carlos/TestTicket
+      #     dotnet test 
+
+      # - name: "Unit Test"
+      #   run: |
+      #     cd ./ticketsrus-aaron-bryce-carlos/UnitTest
+      #     dotnet test 
 
       # - name: "linting"
       #   run: |
       #     cd ./ticketsrus-aaron-bryce-carlos
       #     dotnet format --verify-no-changes
 
-      - name: "Teams Notification"
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.BryceWebHook }}
-          needs: ${{ toJson(needs) }}
-          job: ${{ toJson(job) }}
-          steps: ${{ toJson(steps) }}
+      # - name: "Teams Notification"
+      #   uses: skitionek/notify-microsoft-teams@master
+      #   if: always()
+      #   with:
+      #     webhook_url: ${{ secrets.BryceWebHook }}
+      #     needs: ${{ toJson(needs) }}
+      #     job: ${{ toJson(job) }}
+      #     steps: ${{ toJson(steps) }}
     
     
