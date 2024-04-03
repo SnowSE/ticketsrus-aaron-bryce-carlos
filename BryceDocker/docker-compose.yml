@@ -156,6 +156,7 @@ services:
 
 # networks:
 #   otel:
+# some comment
 
 volumes:
   prometheus:
