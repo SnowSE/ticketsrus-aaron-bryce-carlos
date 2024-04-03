@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: bryceblazorapp
-        image: 144.17.92.12:5000/bryce/bryceblazorapp:1
+        image: 144.17.92.12:5000/bryce2/bryceblazorapp:1
         ports:
         - containerPort: 8080
