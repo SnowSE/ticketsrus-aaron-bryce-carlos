@@ -16,7 +16,7 @@ spec:
         app: blazor-web
     spec:
       containers:
-      - name: bryceblazorapp
+      - name: blazor-web
         image: 144.17.92.12:5000/bryce2/blazor-web:1
         ports:
         - containerPort: 8080
