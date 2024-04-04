@@ -37,7 +37,7 @@ services:
 
   swag:
     image: lscr.io/linuxserver/swag
-    container_name: swag
+    container_name: swag-called-from-docker-compose
     cap_add:
       - NET_ADMIN
     environment:
