@@ -58,7 +58,7 @@ services:
       - swagdata:/config
       - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - 4343:4343
+      - 4342:4342
       - 80:80 #optional
     restart: unless-stopped
 
@@ -70,12 +70,12 @@ services:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
       - prometheusdata:/prometheus
     ports:
-      - 9099:9099
+      - 9097:9097
   grafana:
     image: grafana/grafana
     container_name: grafana
     ports:
-      - 3000:3000
+      - 3001:3001
     restart: unless-stopped
     environment:
       # - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -95,17 +95,17 @@ services:
     volumes:
       - ./otel-collector-config.yml:/etc/otel-collector-config.yml
     ports:
-      - "1888:1888"   # pprof extension
-      - "8888:8888"   # Prometheus metrics exposed by the collector
-      - "8889:8889"   # Prometheus exporter metrics
-      - "13133:13133" # health_check extension
-      - "4317:4317"   # OTLP gRPC receiver
-      - "55679:55679" # zpages extension
+      - "1887:1887"   # pprof extension
+      - "8887:8887"   # Prometheus metrics exposed by the collector
+      - "8877:8877"   # Prometheus exporter metrics
+      - "13137:13137" # health_check extension
+      - "4377:4377"   # OTLP gRPC receiver
+      - "55677:55677" # zpages extension
 
   aaron-loki:
     image: grafana/loki:2.9.2
     ports:
-      - "3100:3100"
+      - "3107:3107"
     #command: -config.file=/etc/loki/local-config.yaml
 
 
