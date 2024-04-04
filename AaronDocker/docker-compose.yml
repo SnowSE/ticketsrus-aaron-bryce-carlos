@@ -70,8 +70,7 @@ services:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
       - prometheusdata:/prometheus
     ports:
-      - 9090:9090
-
+      - 9099:9099
   grafana:
     image: grafana/grafana
     container_name: grafana
