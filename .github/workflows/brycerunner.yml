@@ -25,8 +25,8 @@ jobs:
         run: | 
           cd ./ticketsrus-aaron-bryce-carlos/
           ls -la
-          docker build -t 144.17.92.12:5000/bryce/blazor-web:1 .
-          docker push 144.17.92.12:5000/bryce/blazor-web:1 
+          docker build -t 144.17.92.12:5000/bryce2/blazor-web:1 .
+          docker push 144.17.92.12:5000/bryce2/blazor-web:1 
 
           kubectl apply -f kube/
 
