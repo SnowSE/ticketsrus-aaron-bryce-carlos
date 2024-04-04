@@ -13,7 +13,7 @@ jobs:
           rm -rf ./ticketsrus-aaron-bryce-carlos
 
       - name: "clone project"
-        run: git clone https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+        run: git clone --branch separateBranch https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
 #something1
       - name: "run the build command"
         run: |
