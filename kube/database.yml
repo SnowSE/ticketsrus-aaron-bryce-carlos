@@ -8,7 +8,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 1Gi # was 10Gi but too much space
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -19,6 +19,7 @@ metadata:
     app: blazor-web-db
 spec:
   replicas: 1
+  # stratagy: #chat gpt in class
   selector:
     matchLabels:
       app: blazor-web-db
@@ -48,9 +49,9 @@ spec:
       - name: postgresstorage
         persistentVolumeClaim:
           claimName: blazor-web-db-pvc
-      # - name: init-script
-      #   configMap:
-      #     name: blazor-web-postgres-init
+      - name: init-script
+        configMap:
+          name: blazor-web-postgres-init
 ---
 apiVersion: v1
 kind: Service

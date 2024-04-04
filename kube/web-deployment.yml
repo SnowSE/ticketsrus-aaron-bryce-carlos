@@ -20,3 +20,6 @@ spec:
         image: 144.17.92.12:5000/aaron/blazor-web:2
         ports:
         - containerPort: 80
+        env:
+        - name: MDATABASECONNECTIONSTRING ##TODO fix this
+          value: Server=blazore-web-db-service;password=password;user id=dbuser;
