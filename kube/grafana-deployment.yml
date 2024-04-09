@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: bryce2
-  name: otel-collector-deployment
+  name: grafana-deployment
   labels:
-    app: otel-collector
+    app: grafana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: otel-collector
+      app: grafana
   template:
     metadata:
       labels:
-        app: otel-collector
+        app: grafana
     spec:
       containers:
-      - name: otel-collector
+      - name: grafana
         image: grafana/grafana:9.4.7
         ports:
         - containerPort: 4317
@@ -24,6 +24,6 @@ spec:
           mountPath: /etc/otel-collector-config.yaml
           subPath: otel-collector-config.yaml
     volumes:
-    - name: otel-config
+    - name: grafana-config
       configMap:
-        name: otel-config
+        name: grafana-config

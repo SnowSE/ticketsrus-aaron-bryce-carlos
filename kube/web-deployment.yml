@@ -21,7 +21,7 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: Development
+        - name: COLLECTOR_URL
+          value: http://otel-collector-service:4317/
         - name: Postgres
           value: Server=blazor-web-db-service;password=postgres;user id=postgres;database=postgres;

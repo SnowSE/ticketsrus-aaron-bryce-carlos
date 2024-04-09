@@ -34,6 +34,7 @@ builder.Services.AddLogging();
 const string serviceName = "bryceservice";
 var serviceVersion = "1.0.0";
 
+
 builder.Logging.AddOpenTelemetry(options =>
 {
     options
@@ -42,7 +43,7 @@ builder.Logging.AddOpenTelemetry(options =>
                 .AddService(serviceName))
         .AddConsoleExporter()
         .AddOtlpExporter(o =>
-        o.Endpoint = new Uri("http://otel-collector:4317")
+        o.Endpoint = new Uri(builder.Configuration["COLLECTOR_URL"] ?? throw new NullReferenceException("environment variable not set: COLLECTOR_URL"))
       );
 });
 
