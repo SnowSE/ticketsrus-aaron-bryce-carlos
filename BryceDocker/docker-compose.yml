@@ -10,6 +10,7 @@ services:
     # networks:
     #   - otel
 
+#something
 
   bryceblazorapp:
     build: ..

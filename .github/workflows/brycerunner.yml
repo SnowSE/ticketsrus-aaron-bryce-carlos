@@ -27,6 +27,7 @@ jobs:
           ls -la
           docker build -t 144.17.92.12:5000/bryce2/blazor-web:1 .
           docker push 144.17.92.12:5000/bryce2/blazor-web:1
+<<<<<<< HEAD
           kubectl -n bryce2 create configmap blazor-web-postgres-init --from-file=20240215.01.21.01.sql
 
           cd kube-configs
@@ -34,6 +35,9 @@ jobs:
             kubectl -n bryce2 create configmap blazor-web-postgres-init --from-file=./otel/otel.yml
           cd ../..
 
+=======
+          # kubectl -n bryce2 create configmap blazor-web-postgres-init --from-file=TestTicket/20240215.01.21.01.sql
+>>>>>>> 8ab17132c7118ac217039e9f6109187369faed12
           kubectl apply -f kube/
 
 
