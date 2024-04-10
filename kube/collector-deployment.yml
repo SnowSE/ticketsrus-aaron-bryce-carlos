@@ -20,10 +20,11 @@ spec:
         image: grafana/grafana:9.4.7
         ports:
         - containerPort: 4317
+        volumeMounts:
         - name: otel-config
           mountPath: /etc/otel-collector-config.yaml
           subPath: otel-collector-config.yaml
-    volumes:
-    - name: otel-config
-      configMap:
-        name: otel-config
+      volumes:
+      - name: otel-config
+        configMap:
+          name: otel-config
