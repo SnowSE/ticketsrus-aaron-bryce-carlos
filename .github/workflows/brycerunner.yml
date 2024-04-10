@@ -32,7 +32,7 @@ jobs:
           cd kube-configs
             kubectl -n bryce2 delete configmap otel-config || true
             kubectl -n bryce2 create configmap otel-config --from-file=./../BryceDocker/otel/otel.yml
-          cd ../..
+          cd ..
 
           # kubectl -n bryce2 create configmap blazor-web-postgres-init --from-file=TestTicket/20240215.01.21.01.sql
           kubectl apply -f kube/
