@@ -20,11 +20,11 @@ spec:
         image: grafana/grafana:9.4.7
         ports:
         - containerPort: 4317
-        volumeMounts:
-        - name: grafana-config
-          mountPath: /etc/grafana-config.yaml
-          subPath: grafana-config.yaml
-      volumes:
-      - name: grafana-config
-        configMap:
-          name: grafana-config
+      #   volumeMounts:
+      #   - name: grafana-config
+      #     mountPath: /etc/grafana-config.yaml
+      #     subPath: grafana-config.yaml
+      # volumes:
+      # - name: grafana-config
+      #   configMap:
+      #     name: grafana-config
