@@ -21,5 +21,5 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: MDATABASECONNECTIONSTRING ##TODO fix this
-          value: Server=blazore-web-db-service;password=password;user id=dbuser;
+        - name: Postgres ##THis is the connection string that gets put in the blazor program.cs
+          value: Server=blazor-web-db-pvc;password=postgres;user id=aarondbuser;
