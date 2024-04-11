@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: blazor-web
   rules:
-  - host: aaron-k8s.duckdns.org
+  - host: blazor-web.aaron-kube.duckdns.org
     http:
       paths:
       - path: /

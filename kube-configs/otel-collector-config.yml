@@ -28,3 +28,7 @@ service:
       receivers: [otlp]
       processors: []
       exporters: [loki]
+
+
+
+      
