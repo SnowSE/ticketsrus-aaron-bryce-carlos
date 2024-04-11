@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: aaron
+  name: collector-deployment
+  labels:
+    app: collector
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      labels:
+        app: collector
+    spec:
+      containers:
+      - name: collector
+        image: 144.17.92.12:5000/aaron/blazor-web:2
+        ports:
+        - containerPort: 80
+        env:
+        - name: MDATABASECONNECTIONSTRING ##TODO fix this
+          value: Server=blazore-web-db-service;password=password;user id=dbuser;

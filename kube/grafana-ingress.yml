@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: aaron
+  name: grafana-ingress
+spec:
+  ingressClassName: grafana
+  rules:
+  - host: grafana.aaron-kube.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana-service
+            port:
+              number: 80

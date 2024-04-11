@@ -98,7 +98,9 @@ jobs:
           docker build -t 144.17.92.12:5000/aaron/blazor-web:2
 
           docker push 144.17.92.12:5000/aaron/blazor-web:2
-
+          
           kubectl -n aaron delete -f kube/
           kubectl -n aaron create configmap blazor-web-postgres-init --from-file=./TestTicket\2024015.01.21.01.sql
+
+
           kubectl apply -f kube/
