@@ -104,7 +104,7 @@ jobs:
             
 
 
-          kubectl -n aaron delete -f kube/
+          kubectl -n aaron delete -f kube/  || true
           kubectl -n aaron create configmap blazor-web-postgres-init --from-file=./TestTicket\2024015.01.21.01.sql
 
 
