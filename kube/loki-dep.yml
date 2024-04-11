@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: bryce2
-  name: grafana-deployment
+  name: loki-deployment
   labels:
-    app: grafana
+    app: loki
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: grafana
+      app: loki
   template:
     metadata:
       labels:
-        app: grafana
+        app: loki
     spec:
       containers:
-      - name: grafana
-        image: grafana/grafana:9.4.7
+      - name: loki
+        image: grafana/loki:2.8.0
         ports:
         - containerPort: 3100
         # command: [ "-config.file=/etc/loki/local-config.yaml" ]
