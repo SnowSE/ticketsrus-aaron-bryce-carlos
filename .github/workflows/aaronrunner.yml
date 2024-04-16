@@ -94,9 +94,9 @@ jobs:
         uses: actions/checkout@v4
       - name: deploy
         run: |
-          docker build -t 144.17.92.12:5000/aaron/blazor-web:2 .
+          docker build -t 144.17.92.12:5000/aaron/blazor-web:$GITHUB_RUN_ID .
 
-          docker push 144.17.92.12:5000/aaron/blazor-web:2
+          docker push 144.17.92.12:5000/aaron/blazor-web:$GITGHUB_RUN_ID
 
           # cd kube-configs
           #   kubectl -n aaron delete
@@ -109,3 +109,11 @@ jobs:
 
 
           kubectl apply -f kube/
+
+          for file in ./kube/*; do
+            echo "Applying $file"
+            # kubectl apply -f "$file" # the cat below should do this better
+            cat $file | envsub | kubectl apply -f -
+          done
+
+          # look up how to add secrets to kubectl the oficial website will have the answers

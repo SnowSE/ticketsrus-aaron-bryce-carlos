@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: blazor-web
-        image: 144.17.92.12:5000/aaron/blazor-web:2
+        image: 144.17.92.12:5000/aaron/blazor-web:${GITHUB_RUN_ID}
         ports:
         - containerPort: 80
         env:
