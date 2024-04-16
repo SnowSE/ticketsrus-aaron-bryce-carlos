@@ -25,8 +25,8 @@ jobs:
         run: | 
           cd ./ticketsrus-aaron-bryce-carlos/
           ls -la
-          docker build -t 144.17.92.12:5000/bryce2/blazor-web:1 .
-          docker push 144.17.92.12:5000/bryce2/blazor-web:1
+          docker build -t 144.17.92.12:5000/bryce2/blazor-web:$GITHUB_RUN_ID .
+          docker push 144.17.92.12:5000/bryce2/blazor-web:$GITHUB_RUN_ID
           # kubectl -n bryce2 create configmap blazor-web-postgres-init --from-file=./TestTicket/20240215.01.21.01.sql
 
           cd kube-configs
@@ -42,8 +42,8 @@ jobs:
           #kubectl apply -f kube/
 
 
-          RUN_ID=${{ github.run_id }}
-          for file in ./kube; do
+          export RUN_ID=${{ github.run_id }}
+          for file in ./kube/*; do
             echo "Applying $file"
             cat $file | envsubst | kubectl apply -f -f -
           done
