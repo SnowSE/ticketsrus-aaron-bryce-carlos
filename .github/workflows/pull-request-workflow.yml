@@ -2,6 +2,8 @@ name: pull request environment
 on: 
   pull_request: 
     types: [opened]
+  push:
+    branches: [separateBranch]
 jobs:
   deploy-to-kubernetes:
     runs-on: self-hosted
@@ -11,4 +13,7 @@ jobs:
       - name: deploy kubernetes environment
         run: |
           export PULL_REQUEST_ID=${{ github.event.pull_request.number}}
-          kubectl create namespace bryce-pr-$PULL_REQUEST_ID
+          kubectl create namespace bryce-pr-$PULL_REQUEST_ID || true
+
+          kubectl -n bryce-pr-$PULL_REQUEST_ID delete configmap blazor-web-postgres-init || true
+          kubectl -n bryce-pr-$PULL_REQUEST_ID create configmap blazor-web-postgres-init --from-file=init.sql

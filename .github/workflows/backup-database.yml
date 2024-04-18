@@ -1,6 +1,9 @@
 name: backup database
 on:
-    - workflow_dispatch
+    push:
+      branches:
+        - separateBranch
+    workflow_dispatch:
 jobs:
     backup:
         runs-on: self-hosted
