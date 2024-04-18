@@ -1,6 +1,6 @@
 name: backup database
 on:
-    push:
+    push: 
       branches:
         - separateBranch
     workflow_dispatch:
@@ -14,4 +14,6 @@ jobs:
                 kubectl -n bryce2 exec -t $CONTAINER_NAME -- \
                     pg_dumpall -c -U postgres \
                     > /home/bryce/dump.sql
+
+                    # comment
                     
