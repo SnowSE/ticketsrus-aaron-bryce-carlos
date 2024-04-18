@@ -1,5 +1,7 @@
 name: bryce Deploy Thingy
-on: [push]
+on: 
+  push:
+    branches: [separateBranch]
 jobs:
   DeployingPipeline:
     runs-on: brycelabel
