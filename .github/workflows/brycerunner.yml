@@ -6,29 +6,29 @@ jobs:
   DeployingPipeline:
     runs-on: brycelabel
     steps:
-      - name: "clean things up"
-        run: |
-          pwd
-          cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
-          docker compose down -v
-          cd ../../
-          rm -rf ./ticketsrus-aaron-bryce-carlos
+      # - name: "clean things up"
+      #   run: |
+      #     pwd
+      #     cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
+      #     docker compose down -v
+      #     cd ../../
+      #     rm -rf ./ticketsrus-aaron-bryce-carlos
 
-      - name: "clone project"
-        run: git clone --branch separateBranch https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
+      # - name: "clone project"
+      #   run: git clone --branch separateBranch https://${{secrets.BRYCE_GITHUB_PAT}}@github.com/SnowSE/ticketsrus-aaron-bryce-carlos.git
 
-      - name: "run the build command"
-        run: |
-            # cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
-            # docker compose up --build -d
+      # - name: "run the build command"
+      #   run: |
+      #       # cd ./ticketsrus-aaron-bryce-carlos/BryceDocker
+      #       # docker compose up --build -d
 
           
-      - name: "Push thingy"
+      - name: "Push "
         run: | 
           cd ./ticketsrus-aaron-bryce-carlos/
           ls -la
-          docker build -t 144.17.92.12:5000/bryce2/blazor-web:$GITHUB_RUN_ID .
-          docker push 144.17.92.12:5000/bryce2/blazor-web:$GITHUB_RUN_ID
+          # docker build -t 144.17.92.12:5000/bryce2/blazor-web:$GITHUB_RUN_ID .
+          # docker push 144.17.92.12:5000/bryce2/blazor-web:$GITHUB_RUN_ID
           # kubectl -n bryce2 create configmap blazor-web-postgres-init --from-file=./TestTicket/20240215.01.21.01.sql
 
           cd kube-configs
