@@ -3,10 +3,16 @@ kind: Ingress
 metadata:
   namespace: bryce2
   name: blazor-web-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-webhook-duckdns-bryce-production
 spec:
+  tls:
+  - hosts:
+    - brycekube.duckdns.org
+    secretName: bryce-kube-tls-production
   ingressClassName: nginx
   rules:
-  - host: bryce-k8s.duckdns.org
+  - host: brycekube.duckdns.org
     http:
       paths:
       - path: /
